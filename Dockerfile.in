@@ -18,5 +18,4 @@ COPY src/sc.sh ./
 RUN chmod +x sc.sh
 
 EXPOSE $SERVICE_PORT
-#CMD $SRV_HOME/sc-${SERVICE_VERSION}-linux/bin/sc --logfile=${SC_LOG_FILE} -i ${HOSTNAME} --extra-info=${SC_EXTRA_INFO}
-CMD "/bin/bash"
+CMD $SRV_HOME/sc-${SERVICE_VERSION}-linux/bin/sc --logfile=${SC_LOG_FILE} -i ${HOSTNAME} --extra-info=${SC_EXTRA_INFO}
