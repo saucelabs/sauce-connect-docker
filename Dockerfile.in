@@ -1,0 +1,22 @@
+FROM ubuntu:18.04
+
+APP_DOCKER_ENV
+ENV SC_LOG_FILE="-"
+
+RUN apt-get update && apt-get install -y \
+	ca-certificates \
+	wget
+
+WORKDIR $SRV_HOME
+
+ENV SC_PKG="sc-${SERVICE_VERSION}-linux.tar.gz"
+RUN wget https://saucelabs.com/downloads/${SC_PKG} && \
+	tar xvf ${SC_PKG} && rm -f ${SC_PKG}
+
+COPY service.env ./
+COPY src/sc.sh ./
+RUN chmod +x sc.sh
+
+EXPOSE $SERVICE_PORT
+#CMD $SRV_HOME/sc-${SERVICE_VERSION}-linux/bin/sc --logfile=${SC_LOG_FILE} -i ${HOSTNAME} --extra-info=${SC_EXTRA_INFO}
+CMD "/bin/bash"
