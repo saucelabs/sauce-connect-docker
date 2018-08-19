@@ -1,4 +1,3 @@
-[![N|Solid](https://saucelabs.com/content/images/logo@2x.png)](https://saucelabs.com)
 # Sauce Connect Docker App
 
 Sauce Connect Docker App lets you easily run sauce-connect within the confines of a docker container on any system that supports Docker. 
@@ -16,3 +15,6 @@ $ ./sc.sh -i mytunnel
 ```
 
 Additional arguments may be specified as you would normally do with sauce-connect
+
+## Caveats
+- /tmp in the container is mapped into the current directory so that logs and pid files can be easily accessed
