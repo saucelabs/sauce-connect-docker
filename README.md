@@ -16,5 +16,21 @@ $ ./sc.sh -i mytunnel
 
 Additional arguments may be specified as you would normally do with sauce-connect
 
+## Examples
+
+### Logging
+Specifying -l /tmp/file.log will create a file called "file.log" in the current directory
+
+```sh
+$ ./sc.sh -l /tmp/sc.log
+```
+
+### Ready File
+Specifying -f /tmp/sc.ready will create a ready file called "sc.ready" in the current directory
+
+```sh
+$ ./sc.sh -f /tmp/sc.ready
+```
+
 ## Caveats
 - /tmp in the container is mapped into the current directory so that logs and pid files can be easily accessed
