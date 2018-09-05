@@ -34,3 +34,6 @@ $ ./sc.sh -f /tmp/sc.ready
 
 ## Caveats
 - /tmp in the container is mapped into the current directory so that logs and pid files can be easily accessed. Sauce Connect will default to creating temporary and log files in /tmp, therfore not specifying those options will create files in the current directory anyway.
+
+## Updating
+Updating is as simple as changing the $SERVICE_VERSION in service.env and issuing a docker-build.sh
