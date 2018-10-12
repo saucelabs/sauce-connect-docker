@@ -1,0 +1,21 @@
+FROM frolvlad/alpine-glibc
+
+SERVICE_ENV
+
+RUN apk update && \
+    apk add ca-certificates && \
+    update-ca-certificates && \
+    apk add openssl && \
+    apk add bash
+
+WORKDIR $SERVICE_HOME
+
+ENV SC_PKG="sc-${SERVICE_VERSION}-linux.tar.gz"
+RUN wget https://saucelabs.com/downloads/${SC_PKG} && \
+	tar xvf ${SC_PKG} && rm -f ${SC_PKG}
+
+COPY service.env ./
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
