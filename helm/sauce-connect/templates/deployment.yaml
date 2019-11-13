@@ -29,9 +29,20 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:          
+          - name: "SAUCE_USERNAME"
+            valueFrom:
+              secretKeyRef:
+                key:  sauce_username
+                name: {{ .Release.Name }}-auth
+          - name: "SAUCE_ACCESS_KEY"
+            valueFrom:
+              secretKeyRef:
+                key:  sauce_access_key
+                name: {{ .Release.Name }}-auth
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8888
               protocol: TCP
           livenessProbe:
             httpGet:
