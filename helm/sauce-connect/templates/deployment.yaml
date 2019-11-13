@@ -30,7 +30,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/sc"]
-          args: ["-l-"]
+          args: ["-l-", "-i", "{{ .Values.tunnel_id }}", "--no-remove-colliding-tunnels", "-s"]
           env:          
           - name: "SAUCE_USERNAME"
             valueFrom:
@@ -49,12 +49,14 @@ spec:
           livenessProbe:
             httpGet:
               host: 127.0.0.1
-              path: /
+              path: /debug/vars
               port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
           readinessProbe:
             httpGet:
               host: 127.0.0.1
-              path: /
+              path: /debug/vars
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

@@ -37,3 +37,6 @@ $ ./sc.sh -f /tmp/sc.ready
 
 ## Updating
 Updating is as simple as changing the $SERVICE_VERSION in service.env and issuing a docker-build.sh
+
+## Running in Kubernetes
+
