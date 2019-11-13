@@ -2,7 +2,7 @@
 
 CHART="sauce-connect"
 CREDS="--set sauce_username=$SAUCE_USERNAME \
-            --set sauce_access_key=$SAUCE_ACCESS_KEY"
+       --set sauce_access_key=$SAUCE_ACCESS_KEY"
 
 LOG_FILE=helm-install.log
 LOG="tee -a ${LOG_FILE}"
