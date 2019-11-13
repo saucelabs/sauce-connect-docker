@@ -4,9 +4,11 @@
 
 replicaCount: 1
 
+sc_version: 4.5.4
+
 image:
-  repository: yosper-cloud/sauce-connect
-  tag: latest
+  repository: sauce-connect
+  tag: 4.5.4 
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
