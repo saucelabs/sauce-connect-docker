@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 SERVICE_ENV
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	ca-certificates \
 	wget
 
@@ -11,6 +11,7 @@ WORKDIR $SERVICE_HOME
 ENV SC_PKG="sc-${SERVICE_VERSION}-linux.tar.gz"
 RUN wget https://saucelabs.com/downloads/${SC_PKG} && \
 	tar xvf ${SC_PKG} && rm -f ${SC_PKG}
+RUN ln -s ${SERVICE_HOME}/sc-${SERVICE_VERSION}-linux/bin/sc /sc
 
 COPY service.env ./
 COPY entrypoint.sh /

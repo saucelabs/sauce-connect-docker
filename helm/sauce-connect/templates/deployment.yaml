@@ -29,6 +29,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/sc"]
+          args: ["-l-"]
           env:          
           - name: "SAUCE_USERNAME"
             valueFrom:
@@ -46,10 +48,12 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
+              host: 127.0.0.1
               path: /
               port: http
           readinessProbe:
             httpGet:
+              host: 127.0.0.1
               path: /
               port: http
           resources:
