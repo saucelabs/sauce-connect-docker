@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export DOCKER_BUILDKIT=1
 source service.env
 
 SERVICE_ENV='\
