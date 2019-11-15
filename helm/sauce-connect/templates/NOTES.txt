@@ -18,6 +18,6 @@
   export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "sauce-connect.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   echo "Visit http://127.0.0.1:8888 to use your application"
   kubectl port-forward $POD_NAME 8888:8888
-  echo "Uninstall this deployment with"
-  helm uninstall"{{ .Release.Name }}"
+  echo Uninstall this deployment with
+  helm uninstall {{ .Release.Name }}
 {{- end }}

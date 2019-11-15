@@ -2,11 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Default to HA mode
-replicaCount: 2
-
-tunnel_id: "mytunnelname"
-sc_version: 4.5.4
+# Setting HATunnel to more than 1 will run The tunnels in HA mode
+HATunnels: 2
+tunnelID: "mytunnel"
 
 image:
   repository: quay.io/saucelabs/sauce-connect-docker
@@ -14,8 +12,8 @@ image:
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: "sauce-connect"
+fullnameOverride: "sauce-connect"
 
 serviceAccount:
   # Specifies whether a service account should be created

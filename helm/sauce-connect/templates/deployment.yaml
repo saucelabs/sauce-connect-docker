@@ -5,7 +5,7 @@ metadata:
   labels:
 {{ include "sauce-connect.labels" . | indent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.HATunnels }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "sauce-connect.name" . }}
@@ -30,7 +30,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/sc"]
-          args: ["-l-", "-i", "{{ .Values.tunnel_id }}", "--no-remove-colliding-tunnels", "-s"]
+          args: ["-l-", "-i", "{{ .Values.tunnelID }}", "--no-remove-colliding-tunnels", "-s"]
           env:          
           - name: "SAUCE_USERNAME"
             valueFrom:
@@ -51,13 +51,15 @@ spec:
               host: 127.0.0.1
               path: /debug/vars
               port: http
-            initialDelaySeconds: 30
+            initialDelaySeconds: 300
             periodSeconds: 30
           readinessProbe:
             httpGet:
               host: 127.0.0.1
               path: /debug/vars
               port: http
+            initialDelaySeconds: 300
+            periodSeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
