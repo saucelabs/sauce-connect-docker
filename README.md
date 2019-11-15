@@ -38,5 +38,17 @@ $ ./sc.sh -f /tmp/sc.ready
 ## Updating
 Updating is as simple as changing the $SERVICE_VERSION in service.env and issuing a docker-build.sh
 
-## Running in Kubernetes
+## Running in Kubernetes (WIP)
+This container image can also be deployed in Kubernetes using the helm chart in the `helm` directory. To deploy in Kubernetes, make sure kubectl is configured for the k8s cluster you intend to run on and follow these simple steps;
 
+```sh
+$ export SAUCE_USERNAME="my-user"
+$ export SAUCE_ACCESS_KEY="my-access-key"
+$ cd helm
+$ ./install.sh
+```
+
+### Customizing
+Configuration can be done in `helm/sauce-connect/values.yaml`
+- `tunnelID` : tunnel identifier (default `mytunnel`)
+- `numTunnels` : number of tunnels to use in HA mode (default `2`)
