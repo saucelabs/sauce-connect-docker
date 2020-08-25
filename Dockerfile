@@ -5,11 +5,11 @@ ARG SERVICE_NAME
 ARG SERVICE_VERSION
 ARG SERVICE_HOST
 ARG SERVICE_PORT
-ENV SERVICE_NAME=sauce-connect
+ENV SERVICE_NAME=saucelabs/sauce-connect
 ENV SERVICE_VERSION=4.6.2
 ENV SERVICE_HOST=0.0.0.0
 ENV SERVICE_PORT=22
-ENV SERVICE_HOME=/srv/sauce-connect
+ENV SERVICE_HOME=/srv/saucelabs/sauce-connect
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	ca-certificates \
