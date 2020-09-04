@@ -27,4 +27,10 @@ jobs:
 
       - name: Start Sauce Connect
         run: |
-          docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:${{ matrix.os }}
+          docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:${{ matrix.tag }}
+
+      - name: Upload generated Dockerfiles
+        uses: actions/upload-artifact@v2
+        with:
+          name: dockerfiles
+          path: dist/
