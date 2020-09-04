@@ -10,7 +10,7 @@ const { remote } = require('webdriverio')
             browserVersion: 'latest',
             platformName: 'Windows 10',
             'sauce:options': {
-                tunnelIdentifier: `sc-${process.env.GITHUB_RUN_NUMBER}`,
+                tunnelIdentifier: `sc-${process.env.DIST_TAG}-${process.env.GITHUB_RUN_NUMBER}`,
                 name:`Sauce Connect Docker Test (#${process.env.GITHUB_RUN_NUMBER})`,
                 build: `Sauce Connect Docker (${process.env.GITHUB_REF})`
             }

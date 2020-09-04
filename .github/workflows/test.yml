@@ -38,11 +38,13 @@ jobs:
             --network="host" \
             -t saucelabs/sauce-connect:${{ matrix.tag }} \
             -f /tmp/sc.ready \
-            -i sc-$GITHUB_RUN_NUMBER &
+            -i sc-${{ matrix.tag }}-$GITHUB_RUN_NUMBER &
           ./test/wait-for-sc.sh
 
       - name: Run Test
         run: npm run test
+        env:
+          DIST_TAG: ${{ matrix.tag }}
           
       - name: Upload generated Dockerfiles
         uses: actions/upload-artifact@v2
