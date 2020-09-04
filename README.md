@@ -11,6 +11,12 @@ This repository uses [Node.js](https://nodejs.org/en/) to build the Docker templ
 $ npm run build
 ```
 
+All image distributions are defined in [`/scripts/constant.js`](https://github.com/saucelabs/sauce-connect-docker/blob/5591268e7ce7f00a7cf8bf82846ba065f30fbdb1/scripts/constants.js#L5). You can also build a specific dist by setting a `DIST_TAG` enviroment variable:
+
+```sh
+DIST_TAG=4.6.2 npm run build
+```
+
 You will see all flavors of this image being generated in the `dist` directory.
 
 ## Running

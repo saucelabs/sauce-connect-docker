@@ -10,6 +10,13 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist')
 
 ;(() => {
     for (const [distName, { version: SERVICE_VERSION }] of Object.entries(DIST_IMAGES)) {
+        /**
+         * if DIST_TAG is given only build that specific dist
+         */
+        if (process.env.DIST_TAG && process.env.DIST_TAG !== distName) {
+            continue
+        }
+
         const buildArgs = Object.entries({ SERVICE_VERSION, ...BUILD_ARGS }).map(
             ([name, arg]) => `--build-arg ${name}=${arg}`)
 

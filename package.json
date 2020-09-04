@@ -5,7 +5,6 @@
     "build:generate": "./scripts/generate.js",
     "build:build": "./scripts/build.js",
     "clean": "rimraf dist",
-    "release": "./scripts/release.js",
     "test": "run-p test:*",
     "test:setup": "http-server ./test -p 8080 > /dev/null 2>&1 &",
     "test:run": "node ./test/test.js"

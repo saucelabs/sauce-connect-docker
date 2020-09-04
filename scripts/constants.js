@@ -3,6 +3,10 @@ const SERVICE_HOST = '0.0.0.0'
 const SERVICE_PORT = '22'
 const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
+    'latest': {
+        version: '4.6.2',
+        from: 'ubuntu:18.04'
+    },
     '4.6.2': {
         version: '4.6.2',
         from: 'ubuntu:18.04'

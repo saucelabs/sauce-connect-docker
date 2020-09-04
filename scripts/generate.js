@@ -16,6 +16,13 @@ const ENTRYPOINT_TPL = fs.readFileSync(path.join(__dirname, 'templates', 'entryp
     shelljs.mkdir(DIST_DIR)
     
     for (const [distName, { from, version: SERVICE_VERSION }] of Object.entries(DIST_IMAGES)) {
+        /**
+         * if DIST_TAG is given only build that specific dist
+         */
+        if (process.env.DIST_TAG && process.env.DIST_TAG !== distName) {
+            continue
+        }
+
         const buildArgs = { from, SERVICE_VERSION, ...SERVICE_CONSTANTS }
         const buildOpts = { delimiter: '?' }
         const dockerfile = ejs.render(DOCKERFILE_TPL, buildArgs, buildOpts)
