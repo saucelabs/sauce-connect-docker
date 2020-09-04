@@ -50,14 +50,14 @@ jobs:
           DIST_TAG: ${{ matrix.tag }}
 
       - name: DockerHub Login
-        # if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
       - name: Image Release
-        # if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           docker push saucelabs/sauce-connect:${{ matrix.tag }}
 
