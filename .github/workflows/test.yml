@@ -12,8 +12,9 @@ on:
 jobs:
   basic:
     runs-on: ubuntu-latest
-    container:
-      image: node:lts
+    strategy:
+      matrix:
+        tag: ['4.6.2', '4.6.2-alpine-glibc']
 
     steps:
       - name: Checkout Code
@@ -26,4 +27,4 @@ jobs:
 
       - name: Start Sauce Connect
         run: |
-          docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:4.6.2
+          docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:${{ matrix.os }}
