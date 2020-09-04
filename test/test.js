@@ -26,4 +26,5 @@ const { remote } = require('webdriverio')
     assert.equal(text, 'Sauce Connect Success!')
     
     console.log('Success!')
+    process.exit(0)
 })()
