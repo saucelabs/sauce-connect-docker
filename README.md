@@ -20,7 +20,10 @@ To run the image (once build), execute:
 ```sh
 $ export SAUCE_USERNAME="my-user"
 $ export SAUCE_ACCESS_KEY="my-access-key"
-docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:<tag>
+docker run \
+    -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+    -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+    -it saucelabs/sauce-connect:<tag>
 ```
 
 ...where `<tag>` is the version you've build. Additional arguments may be specified as you would normally do with sauce-connect
@@ -31,14 +34,23 @@ docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCES
 Specifying -l /tmp/file.log will create a file called "file.log" in the current directory
 
 ```sh
-$ docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:<tag> -l /tmp/sc.log
+$ docker run \
+    -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+    -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+    -it saucelabs/sauce-connect:<tag> \
+    -l /tmp/sc.log
 ```
 
 ### Ready File
-Specifying -f /tmp/sc.ready will create a ready file called "sc.ready" in the current directory
+Specifying -f /tmp/sc.ready will create a ready file called "sc.ready" in a specified directory. Ensure to mount that directory from your host machine to be able to access it:
 
 ```sh
-$ docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:<tag> -f /tmp/sc.ready
+$ docker run \
+    -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+    -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+    -v /tmp:/tmp \
+    -it saucelabs/sauce-connect:<tag> \
+    -f /tmp/sc.ready
 ```
 
 ## Caveats
