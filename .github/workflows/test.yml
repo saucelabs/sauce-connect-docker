@@ -27,6 +27,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
         tag: ['4.6.2', '4.6.2-alpine-glibc']
