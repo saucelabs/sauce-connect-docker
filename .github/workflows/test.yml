@@ -37,7 +37,8 @@ jobs:
             -v /tmp:/tmp \
             --network="host" \
             -t saucelabs/sauce-connect:${{ matrix.tag }} \
-            -f /tmp/sc.ready &
+            -f /tmp/sc.ready \
+            -i sc-$GITHUB_RUN_NUMBER &
 
       - name: Run Test
         run: npm run test
