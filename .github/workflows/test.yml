@@ -35,8 +35,12 @@ jobs:
             -e SAUCE_USERNAME=${{ secrets.SAUCE_USERNAME }} \
             -e SAUCE_ACCESS_KEY=${{ secrets.SAUCE_ACCESS_KEY }} \
             -v /tmp:/tmp \
+            --network="host" \
             -t saucelabs/sauce-connect:${{ matrix.tag }} \
             -f /tmp/sc.ready &
+
+      - name: Run Test
+        run: npm run test
           
       - name: Upload generated Dockerfiles
         uses: actions/upload-artifact@v2
