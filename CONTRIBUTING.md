@@ -7,6 +7,7 @@ There are multiple ways of getting involved:
 - [Report a bug](#report-a-bug)
 - [Suggest a feature](#suggest-a-feature)
 - [Contribute code](#contribute-code)
+- [Update Image](#update-image)
 
 Below are a few guidelines we would like you to follow.
 If you need help, please reach out to us by opening an issue.
@@ -54,5 +55,29 @@ All contributions (including pull requests) must agree to the Developer Certific
 ```
 git commit -s -m "adding X to change Y"
 ```
+
+## Update Image
+
+In order to update and release a new Sauce Connect image, do the following:
+
+1. add a new distribution to `DIST_IMAGES` in [`constants.js`](https://github.com/saucelabs/sauce-connect-docker/blob/master/scripts/constants.js)
+1. build all images via `$ npm run build`
+1. test an image locally by running and see if a connection can be established
+   ```sh
+   $ docker run  -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} --network "host" -it saucelabs/sauce-connect:latest
+   ```
+1. create a branch, commit update and push
+1. once all test pass, merge
+1. make a new release by creating a tag that matches the new Sauce Connect version:
+   ```sh
+   $ git checkout master
+   # fetch latest code
+   $ git pull origin master
+   $ git tag -a "vX.X.X"
+   ```
+1. push tag
+   ```sh
+   $ git push origin master --tags
+   ```
 
 **Have fun, and happy hacking!**
