@@ -1,20 +1,29 @@
-# Sauce Connect Docker App
+Sauce Connect Docker
+====================
 
 Sauce Connect Docker App lets you easily run sauce-connect within the confines of a docker container on any system that supports Docker. 
 
-## Building
+## Build
+
+This repository uses [Node.js](https://nodejs.org/en/) to build the Docker templates for various image variations. Why? Because why not!
+
 ```sh
-$ ./docker-build.sh
+$ npm run build
 ```
 
+You will see all flavors of this image being generated in the `dist` directory.
+
 ## Running
+
+To run the image (once build), execute:
+
 ```sh
 $ export SAUCE_USERNAME="my-user"
 $ export SAUCE_ACCESS_KEY="my-access-key"
-$ ./sc.sh -i mytunnel
+docker run -e SAUCE_USERNAME=${SAUCE_USERNAME} -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} -it saucelabs/sauce-connect:<tag>
 ```
 
-Additional arguments may be specified as you would normally do with sauce-connect
+...where `<tag>` is the version you've build. Additional arguments may be specified as you would normally do with sauce-connect
 
 ## Examples
 
@@ -34,21 +43,3 @@ $ ./sc.sh -f /tmp/sc.ready
 
 ## Caveats
 - /tmp in the container is mapped into the current directory so that logs and pid files can be easily accessed. Sauce Connect will default to creating temporary and log files in /tmp, therfore not specifying those options will create files in the current directory anyway.
-
-## Updating
-Updating is as simple as changing the $SERVICE_VERSION in service.env and issuing a docker-build.sh
-
-## Running in Kubernetes (WIP)
-This container image can also be deployed in Kubernetes using the helm chart in the `helm` directory. To deploy in Kubernetes, make sure kubectl is configured for the k8s cluster you intend to run on and follow these simple steps;
-
-```sh
-$ export SAUCE_USERNAME="my-user"
-$ export SAUCE_ACCESS_KEY="my-access-key"
-$ cd helm
-$ ./install.sh
-```
-
-### Customizing
-Configuration can be done in `helm/sauce-connect/values.yaml`
-- `tunnelID` : tunnel identifier (default `mytunnel`)
-- `numTunnels` : number of tunnels to use in HA mode (default `2`)
