@@ -29,35 +29,47 @@ $ export SAUCE_ACCESS_KEY="my-access-key"
 docker run \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+    --network="host" \
     -it saucelabs/sauce-connect:<tag>
 ```
 
-...where `<tag>` is the version you've build. Additional arguments may be specified as you would normally do with sauce-connect
+...where `<tag>` is the version you've build. Additional arguments may be specified as you would normally do with sauce-connect. Ensure you have `--network="host"` set as argument otherwise Sauce Connect within the Docker container can not access your local service in the host machine.
 
-## Examples
+## CI Example
 
-### Logging
-Specifying -l /tmp/file.log will create a file called "file.log" in the current directory
+If you want to run this Docker image as part of your CI/CD pipeline, you can run the following steps:
 
-```sh
-$ docker run \
-    -e SAUCE_USERNAME=${SAUCE_USERNAME} \
-    -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
-    -it saucelabs/sauce-connect:<tag> \
-    -l /tmp/sc.log
-```
+1. __Create "wait-for-sc.sh" file__
 
-### Ready File
-Specifying -f /tmp/sc.ready will create a ready file called "sc.ready" in a specified directory. Ensure to mount that directory from your host machine to be able to access it:
+   To ensure we only continue our pipeline once Sauce Connect is fully connected, we need a simple shell script that waits for Sauce Connect to be ready:
+   ```sh
+   # wait-for-sc.sh
+   until [ -f /tmp/sc.ready ]
+   do
+       sleep 5
+   done
+   echo "SC ready"
+   exit
+   ```
 
-```sh
-$ docker run \
-    -e SAUCE_USERNAME=${SAUCE_USERNAME} \
-    -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
-    -v /tmp:/tmp \
-    -it saucelabs/sauce-connect:<tag> \
-    -f /tmp/sc.ready
-```
+1. __Pull docker image__
+   ```sh
+   $ docker pull saucelabs/sauce-connect
+   ```
 
-## Caveats
-- /tmp in the container is mapped into the current directory so that logs and pid files can be easily accessed. Sauce Connect will default to creating temporary and log files in /tmp, therfore not specifying those options will create files in the current directory anyway.
+1. __Start Sauce Connect__
+
+   It is important that you mount a temp folder so that `wait-for-sc.sh` can detect when Sauce Connect has launched. Also make sure that you set `--network="host"` to allow Sauce Connect to access your application in the host machine.
+   ```sh
+   $ docker run \
+       -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+       -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+       -v /tmp:/tmp \
+       --network="host" \
+       -t saucelabs/sauce-connect:latest \
+       -f /tmp/sc.ready \
+       -i some-identifier &
+    $ ./wait-for-sc.sh
+    ```
+
+Have a look into the GitHub Actions pipeline for [this repository](https://github.com/saucelabs/sauce-connect-docker/blob/master/.github/workflows/pipeline.yml). If you use GitHub Actions you can just make use of our [GitHub Actions Integration](https://github.com/saucelabs/sauce-connect-action).
