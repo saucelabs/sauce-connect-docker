@@ -4,6 +4,8 @@
 
 There are multiple ways of getting involved:
 
+- [Requirements](#requirements)
+- [Set up project](#set-up-project)
 - [Report a bug](#report-a-bug)
 - [Suggest a feature](#suggest-a-feature)
 - [Contribute code](#contribute-code)
@@ -11,6 +13,37 @@ There are multiple ways of getting involved:
 
 Below are a few guidelines we would like you to follow.
 If you need help, please reach out to us by opening an issue.
+
+## Requirements
+
+This repository uses [Node.js](https://nodejs.org/en/) to build the Docker templates for various image variations. Why? Because why not!
+
+- [Node.js](https://nodejs.org/en/) (LTS)
+- [Docker](https://www.docker.com/) (v19 or higher)
+
+## Set up project
+
+First you will need to clone the repo and install the dependencies for generating the Docker files:
+
+```sh
+$ git clone git@github.com:saucelabs/sauce-connect-docker.git
+$ cd sauce-connect-docker
+$ npm install
+```
+
+Then you can generate all supported Docker image distributions via:
+
+```sh
+$ npm run build
+```
+
+All image distributions are defined in [`/scripts/constant.js`](https://github.com/saucelabs/sauce-connect-docker/blob/5591268e7ce7f00a7cf8bf82846ba065f30fbdb1/scripts/constants.js#L5). You can also build a specific dist by setting a `DIST_TAG` enviroment variable:
+
+```sh
+DIST_TAG=4.6.2 npm run build
+```
+
+You will see all flavors of this image being generated in the `dist` directory.
 
 ## Report a bug 
 Reporting bugs is one of the best ways to contribute. Before creating a bug report, please check that an [issue](/issues) reporting the same problem does not already exist. If there is such an issue, you may add your information as a comment.
