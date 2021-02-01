@@ -5,8 +5,8 @@ Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://wiki.
 
 ## Supported tags
 
-- 4.6.2, 4.6.2-apline-glibc, latest
-- 4.5.4
+- 4.6.3, 4.6.3-alpine-glibc, latest
+- 4.6.2, 4.6.2-alpine-glibc, latest
 
 ## Running
 
@@ -107,5 +107,5 @@ Have a look into the GitHub Actions pipeline for [this repository](https://githu
 
 ## Supported tags
 
-- 4.6.2, 4.6.2-apline-glibc, latest
-- 4.5.4
+- 4.6.3, 4.6.3-alpine-glibc, latest
+- 4.6.2, 4.6.2-alpine-glibc, latest
