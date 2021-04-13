@@ -4,12 +4,20 @@ const SERVICE_PORT = '22'
 const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
     'latest': {
-        version: '4.6.4',
-        from: 'ubuntu:18.04'
+        version: '4.6.5',
+        from: 'ubuntu:20.04'
+    },
+    '4.6.5': {
+        version: '4.6.5',
+        from: 'ubuntu:20.04'
+    },
+    '4.6.5-alpine-glibc': {
+        version: '4.6.5',
+        from: 'frolvlad/alpine-glibc'
     },
     '4.6.4': {
         version: '4.6.4',
-        from: 'ubuntu:18.04'
+        from: 'ubuntu:20.04'
     },
     '4.6.4-alpine-glibc': {
         version: '4.6.4',
@@ -17,7 +25,7 @@ const DIST_IMAGES = {
     },
     '4.6.3': {
         version: '4.6.3',
-        from: 'ubuntu:18.04'
+        from: 'ubuntu:20.04'
     },
     '4.6.3-alpine-glibc': {
         version: '4.6.3',
@@ -25,7 +33,7 @@ const DIST_IMAGES = {
     },
     '4.6.2': {
         version: '4.6.2',
-        from: 'ubuntu:18.04'
+        from: 'ubuntu:20.04'
     },
     '4.6.2-alpine-glibc': {
         version: '4.6.2',
