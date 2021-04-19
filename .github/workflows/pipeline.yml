@@ -52,7 +52,8 @@ jobs:
             --network="host" \
             -t saucelabs/sauce-connect:${{ matrix.tag }} \
             -f /tmp/sc.ready \
-            -i sc-${{ matrix.tag }}-$GITHUB_RUN_NUMBER &
+            -i sc-${{ matrix.tag }}-$GITHUB_RUN_NUMBER \
+            -vv &
           ./test/wait-for-sc.sh
 
       - name: Run Test
