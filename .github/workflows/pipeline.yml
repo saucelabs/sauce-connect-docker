@@ -78,3 +78,10 @@ jobs:
         with:
           name: dockerfiles
           path: dist/
+
+      - name: Upload Sauce Connect Logs
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: logfiles
+          path: /tmp/
