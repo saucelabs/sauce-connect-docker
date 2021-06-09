@@ -64,7 +64,7 @@ For more information on high availability Sauce Connect Proxy setup, please chec
 
 ### Additional configuration
 
-See [this README](./docs/sc-configuration/README.md) for the documentation of configuration SauceConnect via environment variables or config file.
+See [this README](./docs/sc-configuration/README.md) for the documentation of SauceConnect configuration via environment variables or YAML file.
 
 ## CI Example
 
