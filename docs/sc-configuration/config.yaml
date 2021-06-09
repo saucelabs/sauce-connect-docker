@@ -1,0 +1,26 @@
+---
+api-key: ""
+cainfo: ""
+capath: ""
+direct-domains: []
+dns: []
+fast-fail-regexps: []
+log-stats: 0
+logfile: ""
+max-logsize: 0
+metrics-address: "localhost:0"
+no-autodetect: false
+no-remove-colliding-tunnels: false
+no-ssl-bump-domains: []
+pac: ""
+pidfile: ""
+proxy: ""
+proxy-tunnel: false
+proxy-userpwd: ""
+readyfile: ""
+rest-url: "https://saucelabs.com/rest/v1"
+shared-tunnel: false
+tunnel-domains: []
+tunnel-identifier: ""
+user: ""
+verbose: 0

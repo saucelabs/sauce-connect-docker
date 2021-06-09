@@ -62,6 +62,10 @@ docker run \
 
 For more information on high availability Sauce Connect Proxy setup, please check out [the docs](https://wiki.saucelabs.com/display/DOCS/High+Availability+Sauce+Connect+Proxy+Setup).
 
+### Additional configuration
+
+See [this README](./docs/sc-configuration/README.md) for the documentation of configuration SauceConnect via environment variables or config file.
+
 ## CI Example
 
 If you want to run this Docker image as part of your CI/CD pipeline, you can run the following steps:
