@@ -62,6 +62,41 @@ docker run \
 
 For more information on high availability Sauce Connect Proxy setup, please check out [the docs](https://wiki.saucelabs.com/display/DOCS/High+Availability+Sauce+Connect+Proxy+Setup).
 
+### Using SauceConnect Config file
+
+SauceConnect allows to define YAML [config file](./docs/sc-configuration/config.yaml) that will contain your configuration.
+YAML config file may contain username, access key, etc... See [SauceConnect documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all the options.
+
+To use a predefined config file with the docker container:
+
+
+1. Create a config file with all the required options, for example
+
+```sh
+$ cat /path/to/sc.yaml
+---
+rest-url: "https://api.us-west-1.saucelabs.com/rest/v1"
+api-key: "<MY API KEY>"
+user: "<MY USERNAME>"
+no-remove-colliding-tunnels: true
+logfile: "-"
+tunnel-identifier: "my-tunnel"
+```
+
+2. Start the container with docker `-v` option (mount the config file into a container) and SC `--config-file` option
+
+```sh
+docker run \
+    --network="host" \
+    -v /path/to/sc.yaml:/tmp/sc.yaml \
+    -it saucelabs/sauce-connect \
+    --config-file /tmp/sc.yaml
+```
+
+### Additional configuration
+
+See [this README](./docs/sc-configuration/README.md) for the documentation of SauceConnect configuration via environment variables or YAML file.
+
 ## CI Example
 
 If you want to run this Docker image as part of your CI/CD pipeline, you can run the following steps:
