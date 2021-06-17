@@ -139,7 +139,7 @@ Have a look into the GitHub Actions pipeline for [this repository](https://githu
 ## Quick reference
 
 - __Maintained by__: the [Open Source Program Office](https://opensource.saucelabs.com/) at Sauce Labs
-- __Where to get help__: the [Sauce Labs Community Hub](https://support.saucelabs.com), the [GitHub Issue](https://github.com/saucelabs/sauce-connect-docker/issues/new), or Stack Overflow
+- __Where to get help__: the [Sauce Labs Community Hub](https://community.saucelabs.com), the [GitHub Issue](https://github.com/saucelabs/sauce-connect-docker/issues/new), or Stack Overflow
 - __GitHub Repository__: [saucelabs/sauce-connect-docker](https://github.com/saucelabs/sauce-connect-docker)
 
 ## Supported tags
