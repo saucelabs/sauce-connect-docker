@@ -34,9 +34,12 @@ Additional arguments may be specified as you would normally do with Sauce Connec
 
 ### Sauce Connect Setup Leveraging High Availability
 
-Our High Availability Sauce Connect Proxy Setup enables you to run tests using multiple Sauce Connect tunnels and run multiple tunnels grouped together as a tunnel pool, which will be treated as single tunnel. Pools are ideal for running 200 or more parallel tests (high concurrency) because tunnel capacity is limited by a single TCP Connection.
+Our High Availability Sauce Connect Proxy Setup enables you to run tests using multiple Sauce Connect
+tunnels and run multiple tunnels grouped together as a tunnel pool, which will be treated as single tunnel.
+Pools are ideal for running 200 or more parallel tests (high concurrency) because tunnel capacity is limited by a single TCP Connection.
 
-To run such pools it is important to apply the `--shared-tunnel --no-remove-colliding-tunnels` parameters to your command and start multiple container with the same tunnel identifier:
+To run such pools it is important to apply the `--no-remove-colliding-tunnels`
+parameters to your command and start multiple container with the same tunnel identifier:
 
 ```sh
 # tunnel #1
@@ -45,7 +48,6 @@ $ docker run \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     --network="host" \
     -it saucelabs/sauce-connect
-    --shared-tunnel \
     --no-remove-colliding-tunnels
     -i sc-tunnel-pool &
 
@@ -55,17 +57,17 @@ docker run \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     --network="host" \
     -it saucelabs/sauce-connect
-    --shared-tunnel \
     --no-remove-colliding-tunnels
     -i sc-tunnel-pool
 ```
 
-For more information on high availability Sauce Connect Proxy setup, please check out [the docs](https://wiki.saucelabs.com/display/DOCS/High+Availability+Sauce+Connect+Proxy+Setup).
+For more information on high availability Sauce Connect Proxy setup, please check out [the docs](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability).
 
 ### Using SauceConnect Config file
 
 SauceConnect allows to define YAML [config file](./docs/sc-configuration/config.yaml) that will contain your configuration.
 YAML config file may contain username, access key, etc... See [SauceConnect documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all the options.
+This Docker image comes with [a config file](./scripts/files/sc-default.yaml) but it could be replaced with a custom one.
 
 To use a predefined config file with the docker container:
 
@@ -121,7 +123,8 @@ If you want to run this Docker image as part of your CI/CD pipeline, you can run
 
 1. __Start Sauce Connect__
 
-   It is important that you mount a temporary folder so that `wait-for-sc.sh` can detect when Sauce Connect has launched. Also make sure that you set `--network="host"` to allow Sauce Connect to access your application in the host machine.
+   It is important that you mount a temporary folder so that `wait-for-sc.sh` can detect when Sauce Connect has launched.
+   Also make sure that you set `--network="host"` to allow Sauce Connect to access your application in the host machine.
    ```sh
    $ docker run \
        -e SAUCE_USERNAME=${SAUCE_USERNAME} \

@@ -1,5 +1,8 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+---
+# This workflow will do a clean install of node dependencies,
+# build the source code and run tests across different versions of node
+# For more information see:
+# https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: SC Docker tests pipeline
 
@@ -24,7 +27,7 @@ jobs:
         tag:
           - 'latest'
           - '4.6.5'
-          - '4.6.5-alpine-glibc'            
+          - '4.6.5-alpine-glibc'
           - '4.6.4'
           - '4.6.4-alpine-glibc'
           - '4.6.3'
@@ -45,14 +48,14 @@ jobs:
 
       - name: Start Sauce Connect
         run: |
+          cp test/sc-test.yaml /tmp/sc-test.yaml
           docker run \
             -e SAUCE_USERNAME=${{ secrets.SAUCE_USERNAME }} \
             -e SAUCE_ACCESS_KEY=${{ secrets.SAUCE_ACCESS_KEY }} \
             -v /tmp:/tmp \
             --network="host" \
             -t saucelabs/sauce-connect:${{ matrix.tag }} \
-            -f /tmp/sc.ready \
-            -v -l - \
+            -c /tmp/sc-test.yaml \
             -i sc-${{ matrix.tag }}-$GITHUB_RUN_NUMBER &
           ./test/wait-for-sc.sh
 

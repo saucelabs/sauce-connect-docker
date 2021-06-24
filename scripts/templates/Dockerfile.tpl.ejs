@@ -9,6 +9,7 @@ ENV SERVICE_VERSION=<?= SERVICE_VERSION ?>
 ENV SERVICE_HOST=<?= SERVICE_HOST ?>
 ENV SERVICE_PORT=<?= SERVICE_PORT ?>
 ENV SERVICE_HOME=<?= SERVICE_HOME ?>
+ENV SAUCE_CONFIG_FILE=/sc.yaml
 
 <? if (from.includes('ubuntu')) {?>
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -33,6 +34,7 @@ RUN ln -s ${SERVICE_HOME}/sc-${SERVICE_VERSION}-linux/bin/sc /sc
 <? } ?>
 
 COPY entrypoint.sh /
+COPY sc.yaml $SAUCE_CONFIG_FILE
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 4445

@@ -1,0 +1,4 @@
+---
+logfile: "-"
+pidfile: /tmp/sc.ready
+verbose: 1
