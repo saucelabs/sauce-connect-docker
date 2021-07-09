@@ -10,7 +10,8 @@ const { DIST_IMAGES, ...SERVICE_CONSTANTS } = require('./constants')
 const ROOT_DIR = path.join(__dirname, '..')
 const DIST_DIR = path.join(ROOT_DIR, 'dist')
 const DOCKERFILE_TPL = fs.readFileSync(path.join(__dirname, 'templates', 'Dockerfile.tpl.ejs'), 'utf8')
-const ENTRYPOINT_TPL = fs.readFileSync(path.join(__dirname, 'templates', 'entrypoint.tpl.ejs'), 'utf8')
+const ENTRYPOINT_SH = path.join(__dirname, 'files', 'entrypoint.sh')
+const SC_CONFIG_YAML = path.join(__dirname, 'files', 'sc-default.yaml')
 
 ;(() => {
     shelljs.mkdir(DIST_DIR)
@@ -26,11 +27,11 @@ const ENTRYPOINT_TPL = fs.readFileSync(path.join(__dirname, 'templates', 'entryp
         const buildArgs = { from, SERVICE_VERSION, ...SERVICE_CONSTANTS }
         const buildOpts = { delimiter: '?' }
         const dockerfile = ejs.render(DOCKERFILE_TPL, buildArgs, buildOpts)
-        const entrypoint = ejs.render(ENTRYPOINT_TPL, buildArgs, buildOpts)
 
         const imageDir = path.join(DIST_DIR, distName)
         shelljs.mkdir(imageDir)
         fs.writeFileSync(path.join(imageDir, 'Dockerfile'), dockerfile)
-        fs.writeFileSync(path.join(imageDir, 'entrypoint.sh'), entrypoint)
+        fs.copyFileSync(ENTRYPOINT_SH, path.join(imageDir, 'entrypoint.sh'))
+        fs.copyFileSync(SC_CONFIG_YAML, path.join(imageDir, 'sc.yaml'))
     }
 })()
