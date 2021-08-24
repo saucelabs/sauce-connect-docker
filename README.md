@@ -12,7 +12,7 @@ Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://wiki.
 
 ## Running
 
-Before we can run the container you need to pull it from [Docker Hub](https://hub.docker.com/):
+Before we can run the container you need to pull it from [Docker Hub](https://hub.docker.com/r/saucelabs/sauce-connect):
 
 ```sh
 $ docker pull saucelabs/sauce-connect
