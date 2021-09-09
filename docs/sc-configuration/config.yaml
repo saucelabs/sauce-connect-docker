@@ -10,7 +10,7 @@ logfile: ""
 max-logsize: 0
 metrics-address: "localhost:0"
 no-autodetect: false
-no-remove-colliding-tunnels: false
+tunnel-pool: false
 no-ssl-bump-domains: []
 pac: ""
 pidfile: ""
@@ -18,9 +18,9 @@ proxy: ""
 proxy-tunnel: false
 proxy-userpwd: ""
 readyfile: ""
-rest-url: "https://saucelabs.com/rest/v1"
+region: "us-west"
 shared-tunnel: false
 tunnel-domains: []
-tunnel-identifier: ""
+tunnel-name: ""
 user: ""
 verbose: 0
