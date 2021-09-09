@@ -35,12 +35,12 @@ Additional arguments may be specified as you would normally do with Sauce Connec
 
 ### Sauce Connect Setup Leveraging High Availability
 
-Our High Availability Sauce Connect Proxy Setup enables you to run tests using multiple Sauce Connect
+[High Availability Sauce Connect Proxy Setup](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability/) enables you to run tests using multiple Sauce Connect
 tunnels and run multiple tunnels grouped together as a tunnel pool, which will be treated as single tunnel.
 Pools are ideal for running 200 or more parallel tests (high concurrency) because tunnel capacity is limited by a single TCP Connection.
 
-To run such pools it is important to apply the `--no-remove-colliding-tunnels`
-parameters to your command and start multiple container with the same tunnel identifier:
+
+To leverage tunnel pools add `--tunnel-pool` option to your command and start multiple container with the same tunnel identifier:
 
 ```sh
 # tunnel #1
@@ -48,18 +48,18 @@ $ docker run \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     --network="host" \
-    -it saucelabs/sauce-connect
-    --no-remove-colliding-tunnels
-    -i sc-tunnel-pool &
+    -it saucelabs/sauce-connect \
+    --tunnel-pool \
+    --tunnel-name sc-tunnel-pool &
 
 # tunnel #2
 docker run \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     --network="host" \
-    -it saucelabs/sauce-connect
-    --no-remove-colliding-tunnels
-    -i sc-tunnel-pool
+    -it saucelabs/sauce-connect \
+    --tunnel-pool \
+    --tunnel-name sc-tunnel-pool
 ```
 
 For more information on high availability Sauce Connect Proxy setup, please check out [the docs](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability).
@@ -78,12 +78,12 @@ To use a predefined config file with the docker container:
 ```sh
 $ cat /path/to/sc.yaml
 ---
-rest-url: "https://api.us-west-1.saucelabs.com/rest/v1"
+region: "us-west"
 api-key: "<MY API KEY>"
 user: "<MY USERNAME>"
-no-remove-colliding-tunnels: true
+tunnel-pool: true
 logfile: "-"
-tunnel-identifier: "my-tunnel"
+tunnel-name: "my-tunnel"
 ```
 
 2. Start the container with docker `-v` option (mount the config file into a container) and SC `--config-file` option
