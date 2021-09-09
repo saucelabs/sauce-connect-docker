@@ -1,7 +1,7 @@
 Sauce Connect Docker
 ====================
 
-Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) within the confines of a [Docker](https://www.docker.com/) container on any system that supports Docker.
+Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://docs.saucelabs.com/secure-connections/sauce-connect) within the confines of a [Docker](https://www.docker.com/) container on any system that supports Docker.
 
 ## Supported tags
 
@@ -148,7 +148,8 @@ Have a look into the GitHub Actions pipeline for [this repository](https://githu
 
 ## Supported tags
 
-- 4.6.5, 4.6.5-alpine-glibc, latest
+- 4.7.0, 4.7.0-alpine-glibc, latest
+- 4.6.5, 4.6.5-alpine-glibc
 - 4.6.4, 4.6.4-alpine-glibc
 - 4.6.3, 4.6.3-alpine-glibc
 - 4.6.2, 4.6.2-alpine-glibc
