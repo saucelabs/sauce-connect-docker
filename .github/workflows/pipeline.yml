@@ -26,6 +26,8 @@ jobs:
       matrix:
         tag:
           - 'latest'
+          - '4.7.1'
+          - '4.7.1-alpine-glibc'
           - '4.7.0'
           - '4.7.0-alpine-glibc'
           - '4.6.5'

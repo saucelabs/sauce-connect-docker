@@ -4,8 +4,16 @@ const SERVICE_PORT = '22'
 const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
     'latest': {
-        version: '4.7.0',
+        version: '4.7.1',
         from: 'ubuntu:20.04'
+    },
+    '4.7.1': {
+        version: '4.7.1',
+        from: 'ubuntu:20.04'
+    },
+    '4.7.1-alpine-glibc': {
+        version: '4.7.1',
+        from: 'frolvlad/alpine-glibc'
     },
     '4.7.0': {
         version: '4.7.0',
