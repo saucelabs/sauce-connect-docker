@@ -79,8 +79,8 @@ Follow the following steps to use your config file with the docker container.
 $ cat /path/to/sc.yaml
 ---
 region: "us-west"
-api-key: "<MY API KEY>"
-user: "<MY USERNAME>"
+api-key: xxx-xxx-xxx
+user: xxx
 tunnel-pool: true
 logfile: "-"
 tunnel-name: "my-tunnel"
