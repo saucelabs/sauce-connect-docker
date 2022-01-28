@@ -67,12 +67,11 @@ For more information on high availability Sauce Connect Proxy setup, please chec
 
 ### Using SauceConnect Config file
 
-SauceConnect allows to define YAML [config file](./docs/sc-configuration/config.yaml) that will contain your configuration.
+SauceConnect allows to define [YAML config file](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/yaml-config/) that will contain your configuration.
 YAML config file may contain username, access key, etc... See [SauceConnect documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all the options.
-This Docker image comes with [a config file](./scripts/files/sc-default.yaml) but it could be replaced with a custom one.
+This Docker image comes with [config file](./scripts/files/sc-default.yaml) but it could be replaced with a custom one.
 
-To use a predefined config file with the docker container:
-
+Follow the following steps to use your config file with the docker container.
 
 1. Create a config file with all the required options, for example
 
