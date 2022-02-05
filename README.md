@@ -32,16 +32,16 @@ docker run \
     -it saucelabs/sauce-connect
 ```
 
-Additional arguments may be specified as you would normally do with Sauce Connect. Ensure you have `--network="host"` set as argument otherwise Sauce Connect within the Docker container can not access your local services in the host machine.
+Additional arguments may be specified as you would normally do with [Sauce Connect Proxy](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy/index.html).
+Ensure you have `--network="host"` set as argument otherwise Sauce Connect within the Docker container can not access your local services in the host machine.
 
 ### Sauce Connect Setup Leveraging High Availability
 
 [High Availability Sauce Connect Proxy Setup](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability/) enables you to run tests using multiple Sauce Connect
 tunnels and run multiple tunnels grouped together as a tunnel pool, which will be treated as single tunnel.
-Pools are ideal for running 200 or more parallel tests (high concurrency) because tunnel capacity is limited by a single TCP Connection.
+Pools are ideal for running 100 or more parallel tests (high concurrency) because tunnel capacity is limited by a single TCP Connection.
 
-
-To leverage tunnel pools add `--tunnel-pool` option to your command and start multiple container with the same tunnel identifier:
+To leverage tunnel pools add `--tunnel-pool` option to your command and start multiple containers with the same tunnel name.
 
 ```sh
 # tunnel #1
@@ -63,12 +63,14 @@ docker run \
     --tunnel-name sc-tunnel-pool
 ```
 
-For more information on high availability Sauce Connect Proxy setup, please check out [the docs](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability).
+For more information on high availability Sauce Connect Proxy setup, please check out [Sauce Connect docs](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability).
 
-### Using SauceConnect Config file
+### Sauce Connect Proxy Configuration
 
-SauceConnect allows to define [YAML config file](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/yaml-config/) that will contain your configuration.
-YAML config file may contain username, access key, etc... See [SauceConnect documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all the options.
+#### YAML Configuration File
+
+Sauce Connect Proxy allows to define [YAML config file](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/yaml-config/) that will contain your configuration.
+YAML config file may contain username, access key, etc... See [Sauce Connect Proxy documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all available options.
 This Docker image comes with [config file](./scripts/files/sc-default.yaml) but it could be replaced with a custom one.
 
 Follow the following steps to use your config file with the docker container.
@@ -78,15 +80,15 @@ Follow the following steps to use your config file with the docker container.
 ```sh
 $ cat /path/to/sc.yaml
 ---
-region: "us-west"
+region: "eu-central"
 api-key: xxx-xxx-xxx
 user: xxx
-tunnel-pool: true
+no-remove-colliding-tunnels: true
 logfile: "-"
-tunnel-name: "my-tunnel"
+tunnel-identifier: "my-tunnel"
 ```
 
-2. Start the container with docker `-v` option (mount the config file into a container) and SC `--config-file` option
+2. Start the container with docker `-v` option (mount the config file into a container) and Sauce Connect Proxy `--config-file` option
 
 ```sh
 docker run \
@@ -96,9 +98,27 @@ docker run \
     --config-file /tmp/sc.yaml
 ```
 
-### Additional configuration
+#### Sauce Connect Proxy Configuration Using Environment Variables
 
-See [this README](./docs/sc-configuration/README.md) for the documentation of SauceConnect configuration via environment variables or YAML file.
+Sauce Connect Proxy may be configured via
+[environment variables](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/environment-variables/#command-line-options-environment-variables).
+
+Sauce Connect Proxy Docker app is convenient to configure via environment variables when it is used as Gitlab service or [GitHub Action](https://github.com/saucelabs/sauce-connect-action).
+
+Example of configuring Sauce Connect Proxy using environment variables.
+
+```sh
+$ cat /tmp/sc.env
+export SAUCE_REST_URL="https://api.us-west-1.saucelabs.com/rest/v1"
+export SAUCE_USER="<YOUR USERNAME>"
+export SAUCE_API_KEY="<YOUR API KEY>"
+export SAUCE_NO_REMOVE_COLLIDING_TUNNELS=TRUE
+export SAUCE_LOGFILE="-"
+export SAUCE_TUNNEL_IDENTIFIER="my-tunnel"
+
+$ source /tmp/sc.env
+$ sc
+```
 
 ## CI Example
 
