@@ -22,38 +22,6 @@ const DIST_IMAGES = {
     '4.7.0-alpine-glibc': {
         version: '4.7.0',
         from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.5': {
-        version: '4.6.5',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.5-alpine-glibc': {
-        version: '4.6.5',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.4': {
-        version: '4.6.4',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.4-alpine-glibc': {
-        version: '4.6.4',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.3': {
-        version: '4.6.3',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.3-alpine-glibc': {
-        version: '4.6.3',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.2': {
-        version: '4.6.2',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.2-alpine-glibc': {
-        version: '4.6.2',
-        from: 'frolvlad/alpine-glibc'
     }
 }
 const BUILD_ARGS = { SERVICE_NAME, SERVICE_HOST, SERVICE_PORT, SERVICE_HOME }
