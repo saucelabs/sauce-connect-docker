@@ -15,6 +15,14 @@ ENV SAUCE_CONFIG_FILE=/sc.yaml
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	ca-certificates \
 	wget
+<? } else if (from.includes('centos')){ ?>
+RUN yum -y update && yum install -y ca-certificates \
+    wget \
+    bash
+<? } else if (from.includes('suse')){ ?>
+RUN update-ca-certificates && zypper --non-interactive install wget \
+    tar \
+    gzip
 <? } else { ?>
 RUN apk update && \
     apk add ca-certificates && \
