@@ -30,6 +30,8 @@ jobs:
           - '4.7.1-alpine-glibc'
           - '4.7.0'
           - '4.7.0-alpine-glibc'
+          - '4.8.0-dev'
+          - '4.8.0-dev-alpine-glibc'
 
     steps:
       - name: Checkout Code

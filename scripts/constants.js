@@ -7,6 +7,14 @@ const DIST_IMAGES = {
         version: '4.7.1',
         from: 'ubuntu:20.04'
     },
+    '4.8.0-dev': {
+        version: '4.8.0-dev',
+        from: 'ubuntu:20.04'
+    },
+    '4.8.0-dev-alpine-glibc': {
+        version: '4.8.0-dev',
+        from: 'frolvlad/alpine-glibc'
+    },
     '4.7.1': {
         version: '4.7.1',
         from: 'ubuntu:20.04'
