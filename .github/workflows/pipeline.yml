@@ -32,8 +32,6 @@ jobs:
           - '4.7.0-alpine-glibc'
           - '4.8.0-beta'
           - '4.8.0-beta-alpine-glibc'
-          - '4.8.0-beta-centos'
-          - '4.8.0-beta-suse-15'
 
     steps:
       - name: Checkout Code
