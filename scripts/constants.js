@@ -7,6 +7,22 @@ const DIST_IMAGES = {
         version: '4.7.1',
         from: 'ubuntu:20.04'
     },
+    '4.8.0-beta': {
+        version: '4.8.0-beta',
+        from: 'ubuntu:20.04'
+    },
+    '4.8.0-beta-centos': {
+        version: '4.8.0-beta',
+        from: 'centos:centos7'
+    },
+    '4.8.0-beta-suse-15': {
+        version: '4.8.0-beta',
+        from: 'opensuse/leap:15'
+    },
+    '4.8.0-beta-alpine-glibc': {
+        version: '4.8.0-beta',
+        from: 'frolvlad/alpine-glibc'
+    },
     '4.7.1': {
         version: '4.7.1',
         from: 'ubuntu:20.04'
@@ -21,38 +37,6 @@ const DIST_IMAGES = {
     },
     '4.7.0-alpine-glibc': {
         version: '4.7.0',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.5': {
-        version: '4.6.5',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.5-alpine-glibc': {
-        version: '4.6.5',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.4': {
-        version: '4.6.4',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.4-alpine-glibc': {
-        version: '4.6.4',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.3': {
-        version: '4.6.3',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.3-alpine-glibc': {
-        version: '4.6.3',
-        from: 'frolvlad/alpine-glibc'
-    },
-    '4.6.2': {
-        version: '4.6.2',
-        from: 'ubuntu:20.04'
-    },
-    '4.6.2-alpine-glibc': {
-        version: '4.6.2',
         from: 'frolvlad/alpine-glibc'
     }
 }
