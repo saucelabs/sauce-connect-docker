@@ -122,7 +122,8 @@ $ sc
 
 ## CI Example
 
-If you want to run this Docker image as part of your CI/CD pipeline, you can run the following steps:
+If you want to run this Docker image as part of your CI/CD pipeline, you can either use the Sauce Connect Proxy "ready file" (available for all versions)
+or, starting with v4.8.0, `readiness` endpoint (see [Kubernetes support](#kubernetes-support)).
 
 1. __Create "wait-for-sc.sh" file__
 
@@ -159,6 +160,34 @@ If you want to run this Docker image as part of your CI/CD pipeline, you can run
     ```
 
 Have a look into the GitHub Actions pipeline for [this repository](https://github.com/saucelabs/sauce-connect-docker/blob/master/.github/workflows/pipeline.yml). If you use GitHub Actions you can just make use of our [GitHub Actions Integration](https://github.com/saucelabs/sauce-connect-action).
+
+## Kubernetes Support
+
+Starting with 4.8.0, Sauce Connect Proxy Docker image allows configuring liveness and readiness HTTP probes. See the [kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) for more info.
+
+Docker image exposes Sauce Connect Proxy HTTP status server on port 8032. The following endpoints are available:
+
+- /readiness returns 200 response code when Sauce Connect Proxy is ready, 503 otherwise
+- /liveness returns 200 response code when Sauce Connect Proxy is running
+
+
+   ```sh
+   $ docker run \
+       -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+       -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+       -v /tmp:/tmp \
+       -p 8032:8032 \
+       -t saucelabs/sauce-connect:latest \
+       -f /tmp/sc.ready \
+       -i some-identifier &
+    $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8999/readiness
+    503
+    $ ./wait-for-sc.sh
+    $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8999/readiness
+    200
+    $ curl localhost:8032/liveness
+    OK
+    ```
 
 ## Quick reference
 
