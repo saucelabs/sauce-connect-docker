@@ -1,0 +1,9 @@
+---
+logfile: "-"
+se-port: 4445
+<? if (SERVICE_VERSION.startsWith('4.6.') || SERVICE_VERSION.startsWith('4.7.')) {-?>
+metrics-address: ":8032"
+extra-info: '{"runner": "docker"}'
+<?} else {?>metadata: "runner:docker"
+output-format: "text"
+<?} -?>

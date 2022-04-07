@@ -1,5 +1,0 @@
----
-logfile: "-"
-se-port: 4445
-metrics-address: ":8032"
-extra-info: '{"runner": "docker"}'
