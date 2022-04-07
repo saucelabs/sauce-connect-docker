@@ -20,20 +20,21 @@ Before we can run the container you need to pull it from [Docker Hub](https://hu
 $ docker pull saucelabs/sauce-connect
 ```
 
-This will pull the latest version of Sauce Connect which we recommend to use. You can always specify a specific tag (see [supported tags](#supported-tags)). To run the image, execute:
+This will pull the latest version of Sauce Connect which we recommend to use.
+You can always specify a specific tag (see [supported tags](#supported-tags)). To run the image, execute:
 
 ```sh
-$ export SAUCE_USERNAME="my-user"
-$ export SAUCE_ACCESS_KEY="my-access-key"
-docker run \
+$ export SAUCE_USERNAME="my-user" SAUCE_ACCESS_KEY="my-access-key"
+$ docker run \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     --network="host" \
     -it saucelabs/sauce-connect
 ```
 
+> :warning: **The example above uses '--network="host"' docker option to allow Sauce Connect within the Docker container to access your local services in the host machine. This is not going to work on Mac OS and Windows.**
+
 Additional arguments may be specified as you would normally do with [Sauce Connect Proxy](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy/index.html).
-Ensure you have `--network="host"` set as argument otherwise Sauce Connect within the Docker container can not access your local services in the host machine.
 
 ### Sauce Connect Setup Leveraging High Availability
 
@@ -94,7 +95,7 @@ tunnel-identifier: "my-tunnel"
 docker run \
     --network="host" \
     -v /path/to/sc.yaml:/tmp/sc.yaml \
-    -it saucelabs/sauce-connect \
+    -t saucelabs/sauce-connect \
     --config-file /tmp/sc.yaml
 ```
 
@@ -105,19 +106,24 @@ Sauce Connect Proxy may be configured via
 
 Sauce Connect Proxy Docker app is convenient to configure via environment variables when it is used as Gitlab service or [GitHub Action](https://github.com/saucelabs/sauce-connect-action).
 
-Example of configuring Sauce Connect Proxy using environment variables.
+Example of configuring Sauce Connect Proxy using environment variables (the example uses 4.8.x-specific options that may not work with the previous versions).
 
 ```sh
 $ cat /tmp/sc.env
-export SAUCE_REST_URL="https://api.us-west-1.saucelabs.com/rest/v1"
-export SAUCE_USER="<YOUR USERNAME>"
-export SAUCE_API_KEY="<YOUR API KEY>"
-export SAUCE_NO_REMOVE_COLLIDING_TUNNELS=TRUE
-export SAUCE_LOGFILE="-"
-export SAUCE_TUNNEL_IDENTIFIER="my-tunnel"
+SAUCE_REGION:eu-central
+SAUCE_API_KEY="<YOUR API KEY>"
+SAUCE_USER="<YOUR USERNAME>"
+SAUCE_OUTPUT_FORMAT=text
+SAUCE_TUNNEL_POOL=true
+SAUCE_LOGFILE=-
+SAUCE_TUNNEL_NAME=my-docker-tunnel
+SAUCE_READYFILE=/tmp/sc.ready
 
-$ source /tmp/sc.env
-$ sc
+$ docker run \
+    --env-file /tmp/sc.env \
+    --network="host" \
+    -v /tmp:/tmp \
+    -t saucelabs/sauce-connect:4.8.0
 ```
 
 ## CI Example
@@ -180,14 +186,16 @@ Docker image exposes Sauce Connect Proxy HTTP status server on port 8032. The fo
        -t saucelabs/sauce-connect:latest \
        -f /tmp/sc.ready \
        -i some-identifier &
-    $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8999/readiness
+    $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8032/readiness
     503
     $ ./wait-for-sc.sh
-    $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8999/readiness
+    $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8032/readiness
     200
     $ curl localhost:8032/liveness
     OK
     ```
+
+> :warning: **Make sure to add -v 8032:8032 docker option to expose the port to the host.**
 
 ## Quick reference
 
