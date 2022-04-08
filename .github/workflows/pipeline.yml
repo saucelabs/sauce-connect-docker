@@ -55,7 +55,6 @@ jobs:
             -t saucelabs/sauce-connect:${{ matrix.tag }} \
             -c /tmp/sc-test.yaml \
             --tunnel-name sc-${{ matrix.tag }}-$GITHUB_RUN_NUMBER &
-          ./test/wait-for-sc.sh
 
       - name: Run Test
         run: npm run test
