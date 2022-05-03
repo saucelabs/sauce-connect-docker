@@ -14,14 +14,17 @@ Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://docs.
 
 ## Running
 
-Before we can run the container you need to pull it from [Docker Hub](https://hub.docker.com/r/saucelabs/sauce-connect):
+- Pull the image from [Docker Hub](https://hub.docker.com/r/saucelabs/sauce-connect):
+  - The `latest` tag (recommended)
+  ```sh
+  $ docker pull saucelabs/sauce-connect
+  ```
+  - You can always specify a specific tag (see [supported tags](#supported-tags)), for example, `4.8.0-rc1`
+  ```sh
+  $ docker pull saucelabs/sauce-connect:4.8.0-rc1
+  ```
 
-```sh
-$ docker pull saucelabs/sauce-connect
-```
-
-This will pull the latest version of Sauce Connect which we recommend to use.
-You can always specify a specific tag (see [supported tags](#supported-tags)). To run the image, execute:
+- To run the container, execute:
 
 ```sh
 $ export SAUCE_USERNAME="my-user" SAUCE_ACCESS_KEY="my-access-key"
@@ -49,7 +52,6 @@ To leverage tunnel pools add `--tunnel-pool` option to your command and start mu
 $ docker run \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
-    --network="host" \
     -it saucelabs/sauce-connect \
     --tunnel-pool \
     --tunnel-name sc-tunnel-pool &
@@ -58,7 +60,6 @@ $ docker run \
 docker run \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
-    --network="host" \
     -it saucelabs/sauce-connect \
     --tunnel-pool \
     --tunnel-name sc-tunnel-pool
@@ -93,7 +94,6 @@ tunnel-identifier: "my-tunnel"
 
 ```sh
 docker run \
-    --network="host" \
     -v /path/to/sc.yaml:/tmp/sc.yaml \
     -t saucelabs/sauce-connect \
     --config-file /tmp/sc.yaml
@@ -121,50 +121,78 @@ SAUCE_READYFILE=/tmp/sc.ready
 
 $ docker run \
     --env-file /tmp/sc.env \
-    --network="host" \
     -v /tmp:/tmp \
     -t saucelabs/sauce-connect:4.8.0
 ```
 
 ## CI Example
 
-If you want to run this Docker image as part of your CI/CD pipeline, you can either use the Sauce Connect Proxy "ready file" (available for all versions)
-or, starting with v4.8.0, `readiness` endpoint (see [Kubernetes support](#kubernetes-support)).
+If you want to run this Docker image as part of your CI/CD pipeline, you would need a way to determine that Sauce Connect Proxy is ready to proxy the requests. You can achieve that by:
+1. Starting with v4.8.0, the `/readiness` endpoint is available.
+1. By using Docker's [volumes](https://docs.docker.com/storage/volumes/) feature and [--readyfile](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy/index.html#--readyfile).
 
-1. __Create "wait-for-sc.sh" file__
+### Readiness Endpoint
 
-   To ensure we only continue our pipeline once Sauce Connect is fully connected, we need a simple shell script that waits for Sauce Connect to be ready:
+> :warning: **Only available starting with Sauce Connect Proxy version 4.8.0.**
+
+Starting with 4.8.0, Sauce Connect Proxy Docker image allows configuring liveness and readiness HTTP probes. See the [kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) for more info.
+
+Docker container exposes Sauce Connect Proxy HTTP status server on port 8032. The following endpoints are available:
+- `/readiness` returns 200 response code when Sauce Connect Proxy is ready, 503 otherwise
+- `/liveness` returns 200 response code when Sauce Connect Proxy is running
+
+You can leverage the "readiness" endpoint in our CI/CD pipeline by running the following:
+
+1. Create a simple bash script `wait-for-sc.sh` that will ensure the pipeline only continues after Sauce Connect Proxy is fully connected and ready.
+   ```bash title="wait-for-sc.sh"
+   until [ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8032/readiness)" == "200" ]
+   do
+       sleep 2
+   done
+   echo "SC ready"
+   ```
+1. Run Sauce Connect Docker container using the script below.
+  ```bash
+  $ docker run \
+      -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+      -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+      -p 8032:8032 \
+      -t saucelabs/sauce-connect:latest \
+      -i my-docker-tunnel --detach
+    $ ./wait-for-sc.sh
+  ```
+> :warning: **Make sure to add -p 8032:8032 docker option to expose the port to the host.**
+
+### Ready File
+
+You can leverage the Sauce Connect Proxy [--readyfile](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy/index.html#--readyfile) flag that allows to specify a file that will be created (or updated) when the proxy is ready.
+
+1. Just as above, create a simple bash script `wait-for-sc.sh` that will ensure the pipeline only continues after Sauce Connect Proxy is fully connected and ready.
+
    ```sh
    # wait-for-sc.sh
    until [ -f /tmp/sc.ready ]
    do
-       sleep 5
+       sleep 1
    done
    echo "SC ready"
    exit
    ```
 
-1. __Pull docker image__
-   ```sh
-   $ docker pull saucelabs/sauce-connect
-   ```
-
-1. __Start Sauce Connect__
-
-   It is important that you mount a temporary folder so that `wait-for-sc.sh` can detect when Sauce Connect has launched.
-   Also make sure that you set `--network="host"` to allow Sauce Connect to access your application in the host machine.
+1. Run Sauce Connect Docker container using the script below.
    ```sh
    $ docker run \
        -e SAUCE_USERNAME=${SAUCE_USERNAME} \
        -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
        -v /tmp:/tmp \
-       --network="host" \
        -t saucelabs/sauce-connect:latest \
        -f /tmp/sc.ready \
-       -i some-identifier &
+       -i my-docker-tunnel --detach
     $ ./wait-for-sc.sh
     ```
+> :warning: **Make sure to add -v /tmp:/tmp docker option so that `wait-for-sc.sh` can detect that Sauce Connect Proxy is ready.**
 
+### Using GitHub Actions
 Have a look into the GitHub Actions pipeline for [this repository](https://github.com/saucelabs/sauce-connect-docker/blob/master/.github/workflows/pipeline.yml). If you use GitHub Actions you can just make use of our [GitHub Actions Integration](https://github.com/saucelabs/sauce-connect-action).
 
 ## Kubernetes Support
@@ -185,7 +213,7 @@ Docker image exposes Sauce Connect Proxy HTTP status server on port 8032. The fo
        -p 8032:8032 \
        -t saucelabs/sauce-connect:latest \
        -f /tmp/sc.ready \
-       -i some-identifier &
+       -i my-docker-tunnel --detach
     $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8032/readiness
     503
     $ ./wait-for-sc.sh
@@ -193,9 +221,9 @@ Docker image exposes Sauce Connect Proxy HTTP status server on port 8032. The fo
     200
     $ curl localhost:8032/liveness
     OK
-    ```
+   ```
 
-> :warning: **Make sure to add -v 8032:8032 docker option to expose the port to the host.**
+> :warning: **Make sure to add -p 8032:8032 docker option to expose the port to the host.**
 
 ## Quick reference
 
