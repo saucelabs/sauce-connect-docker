@@ -51,14 +51,16 @@ To leverage tunnel pools add `--tunnel-pool` option to your command and start mu
 ```sh
 # tunnel #1
 $ docker run \
+    --detach \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     -it saucelabs/sauce-connect \
     --tunnel-pool \
-    --tunnel-name sc-tunnel-pool &
+    --tunnel-name sc-tunnel-pool
 
 # tunnel #2
 docker run \
+    --detach \
     -e SAUCE_USERNAME=${SAUCE_USERNAME} \
     -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
     -it saucelabs/sauce-connect \
@@ -155,11 +157,12 @@ You can leverage the "readiness" endpoint in our CI/CD pipeline by running the f
 1. Run Sauce Connect Docker container using the script below.
   ```bash
   $ docker run \
+      --detach \
       -e SAUCE_USERNAME=${SAUCE_USERNAME} \
       -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
       -p 8032:8032 \
       -t saucelabs/sauce-connect:latest \
-      -i my-docker-tunnel --detach
+      -i my-docker-tunnel
     $ ./wait-for-sc.sh
   ```
 > :warning: **Make sure to add -p 8032:8032 docker option to expose the port to the host.**
@@ -183,12 +186,13 @@ You can leverage the Sauce Connect Proxy [--readyfile](https://docs.saucelabs.co
 1. Run Sauce Connect Docker container using the script below.
    ```sh
    $ docker run \
-       -e SAUCE_USERNAME=${SAUCE_USERNAME} \
-       -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
-       -v /tmp:/tmp \
-       -t saucelabs/sauce-connect:latest \
-       -f /tmp/sc.ready \
-       -i my-docker-tunnel --detach
+      --detach \
+      -e SAUCE_USERNAME=${SAUCE_USERNAME} \
+      -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
+      -v /tmp:/tmp \
+      -t saucelabs/sauce-connect:latest \
+      -f /tmp/sc.ready \
+      -i my-docker-tunnel
     $ ./wait-for-sc.sh
     ```
 > :warning: **Make sure to add -v /tmp:/tmp docker option so that `wait-for-sc.sh` can detect that Sauce Connect Proxy is ready.**
@@ -208,13 +212,12 @@ Docker image exposes Sauce Connect Proxy HTTP status server on port 8032. The fo
 
    ```sh
    $ docker run \
+       --detach \
        -e SAUCE_USERNAME=${SAUCE_USERNAME} \
        -e SAUCE_ACCESS_KEY=${SAUCE_ACCESS_KEY} \
-       -v /tmp:/tmp \
        -p 8032:8032 \
        -t saucelabs/sauce-connect:latest \
-       -f /tmp/sc.ready \
-       -i my-docker-tunnel --detach
+       -i my-docker-tunnel
     $ curl -s -o /dev/null -w "%{http_code}" http://localhost:8032/readiness
     503
     $ ./wait-for-sc.sh
