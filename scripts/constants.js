@@ -7,20 +7,20 @@ const DIST_IMAGES = {
         version: '4.7.1',
         from: 'ubuntu:20.04'
     },
-    '4.8.0-beta': {
-        version: '4.8.0-beta',
+    '4.8.0-rc1': {
+        version: '4.8.0-rc1',
         from: 'ubuntu:20.04'
     },
-    '4.8.0-beta-centos': {
-        version: '4.8.0-beta',
+    '4.8.0-rc1-centos': {
+        version: '4.8.0-rc1',
         from: 'centos:centos7'
     },
-    '4.8.0-beta-suse-15': {
-        version: '4.8.0-beta',
+    '4.8.0-rc1-suse-15': {
+        version: '4.8.0-rc1',
         from: 'opensuse/leap:15'
     },
-    '4.8.0-beta-alpine-glibc': {
-        version: '4.8.0-beta',
+    '4.8.0-rc1-alpine-glibc': {
+        version: '4.8.0-rc1',
         from: 'frolvlad/alpine-glibc'
     },
     '4.7.1': {

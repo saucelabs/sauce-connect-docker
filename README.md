@@ -6,6 +6,7 @@ Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://docs.
 ## Supported tags
 
 - 4.7.1, 4.7.1-alpine-glibc, latest
+- 4.8.0-rc1, 4.8.0-rc1-alpine-glibc
 - 4.7.0, 4.7.0-alpine-glibc
 - 4.6.5, 4.6.5-alpine-glibc
 - 4.6.4, 4.6.4-alpine-glibc
