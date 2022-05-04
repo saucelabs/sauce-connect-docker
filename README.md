@@ -36,7 +36,8 @@ $ docker run \
     -it saucelabs/sauce-connect
 ```
 
-> :warning: **The example above uses '--network="host"' docker option to allow Sauce Connect within the Docker container to access your local services in the host machine. This is not going to work on Mac OS and Windows.**
+> :warning: **The example above uses '--network="host"' docker option to allow Sauce Connect within the Docker container to access your local services in the host machine.
+> This is not going to work on Mac OS and Windows. See [Connect from a container to a service on the macOS host](https://docs.docker.com/desktop/mac/networking/#use-cases-and-workarounds).**
 
 Additional arguments may be specified as you would normally do with [Sauce Connect Proxy](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy/index.html).
 
