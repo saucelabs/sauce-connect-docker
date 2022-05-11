@@ -4,23 +4,23 @@ const SERVICE_PORT = '22'
 const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
     'latest': {
-        version: '4.7.1',
+        version: '4.8.0',
         from: 'ubuntu:20.04'
     },
-    '4.8.0-rc1': {
-        version: '4.8.0-rc1',
+    '4.8.0': {
+        version: '4.8.0',
         from: 'ubuntu:20.04'
     },
-    '4.8.0-rc1-centos': {
-        version: '4.8.0-rc1',
+    '4.8.0-centos': {
+        version: '4.8.0',
         from: 'centos:centos7'
     },
-    '4.8.0-rc1-suse-15': {
-        version: '4.8.0-rc1',
+    '4.8.0-suse-15': {
+        version: '4.8.0',
         from: 'opensuse/leap:15'
     },
-    '4.8.0-rc1-alpine-glibc': {
-        version: '4.8.0-rc1',
+    '4.8.0-alpine-glibc': {
+        version: '4.8.0',
         from: 'frolvlad/alpine-glibc'
     },
     '4.7.1': {
