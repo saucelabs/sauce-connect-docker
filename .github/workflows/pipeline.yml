@@ -28,10 +28,8 @@ jobs:
           - 'latest'
           - '4.8.0'
           - '4.8.0-alpine-glibc'
-          - '4.7.1'
-          - '4.7.1-alpine-glibc'
-          - '4.7.0'
-          - '4.7.0-alpine-glibc'
+          - '4.8.0-centos'
+          - '4.8.0-suse-15'
 
     steps:
       - name: Checkout Code
