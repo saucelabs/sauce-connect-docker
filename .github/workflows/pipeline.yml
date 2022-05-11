@@ -26,12 +26,12 @@ jobs:
       matrix:
         tag:
           - 'latest'
+          - '4.8.0'
+          - '4.8.0-alpine-glibc'
           - '4.7.1'
           - '4.7.1-alpine-glibc'
           - '4.7.0'
           - '4.7.0-alpine-glibc'
-          - '4.8.0-rc1'
-          - '4.8.0-rc1-alpine-glibc'
 
     steps:
       - name: Checkout Code
