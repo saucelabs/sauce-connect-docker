@@ -21,7 +21,7 @@ const DIST_IMAGES = {
     },
     '4.8.0-alpine-glibc': {
         version: '4.8.0',
-        from: 'frolvlad/alpine-glibc'
+        from: 'frolvlad/alpine-glibc:alpine-3.14_glibc-2.33'
     },
     '4.7.1': {
         version: '4.7.1',
@@ -29,7 +29,7 @@ const DIST_IMAGES = {
     },
     '4.7.1-alpine-glibc': {
         version: '4.7.1',
-        from: 'frolvlad/alpine-glibc'
+        from: 'frolvlad/alpine-glibc:alpine-3.14_glibc-2.33'
     },
     '4.7.0': {
         version: '4.7.0',
@@ -37,7 +37,7 @@ const DIST_IMAGES = {
     },
     '4.7.0-alpine-glibc': {
         version: '4.7.0',
-        from: 'frolvlad/alpine-glibc'
+        from: 'frolvlad/alpine-glibc:alpine-3.14_glibc-2.33'
     }
 }
 const BUILD_ARGS = { SERVICE_NAME, SERVICE_HOST, SERVICE_PORT, SERVICE_HOME }
