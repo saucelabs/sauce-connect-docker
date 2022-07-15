@@ -7,17 +7,25 @@ const DIST_IMAGES = {
         version: '4.8.0',
         from: 'ubuntu:20.04'
     },
+    '4.8.1-beta1': {
+        version: '4.8.1-beta1',
+        from: 'ubuntu:20.04'
+    },
+    '4.8.1-beta1-centos': {
+        version: '4.8.1-beta1',
+        from: 'centos:centos7'
+    },
+    '4.8.1-beta1-suse-15': {
+        version: '4.8.1-beta1',
+        from: 'opensuse/leap:15'
+    },
+    '4.8.1-beta1-alpine-glibc': {
+        version: '4.8.1-beta1',
+        from: 'frolvlad/alpine-glibc:alpine-3.14_glibc-2.33'
+    },
     '4.8.0': {
         version: '4.8.0',
         from: 'ubuntu:20.04'
-    },
-    '4.8.0-centos': {
-        version: '4.8.0',
-        from: 'centos:centos7'
-    },
-    '4.8.0-suse-15': {
-        version: '4.8.0',
-        from: 'opensuse/leap:15'
     },
     '4.8.0-alpine-glibc': {
         version: '4.8.0',
