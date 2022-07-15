@@ -28,8 +28,6 @@ jobs:
           - 'latest'
           - '4.8.1-beta1'
           - '4.8.1-beta1-alpine-glibc'
-          - '4.8.1-beta1-suse-15'
-          - '4.8.1-beta1-centos'
           - '4.8.0'
           - '4.8.0-alpine-glibc'
           - '4.8.0'
