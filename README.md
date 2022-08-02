@@ -21,9 +21,9 @@ Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://docs.
   ```sh
   $ docker pull saucelabs/sauce-connect
   ```
-  - You can always specify a specific tag (see [supported tags](#supported-tags)), for example, `4.8.0-rc1`
+  - You can always specify a specific tag (see [supported tags](#supported-tags)), for example, `4.8.1`
   ```sh
-  $ docker pull saucelabs/sauce-connect:4.8.0-rc1
+  $ docker pull saucelabs/sauce-connect:4.8.1
   ```
 
 - To run the container, execute:
@@ -127,7 +127,7 @@ SAUCE_READYFILE=/tmp/sc.ready
 $ docker run \
     --env-file /tmp/sc.env \
     -v /tmp:/tmp \
-    -t saucelabs/sauce-connect:4.8.0
+    -t saucelabs/sauce-connect:4.8.1
 ```
 
 ## CI Example
