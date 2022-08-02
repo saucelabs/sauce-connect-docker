@@ -4,7 +4,7 @@ const SERVICE_PORT = '22'
 const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
     'latest': {
-        version: '4.8.0',
+        version: '4.8.1',
         from: 'ubuntu:20.04'
     },
     '4.8.1': {
