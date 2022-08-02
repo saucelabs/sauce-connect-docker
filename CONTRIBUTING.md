@@ -64,7 +64,7 @@ create a new one that you would like work on and discuss your ideas and use case
 It is always best to discuss your plans beforehand, to ensure that your contribution is in line with our goals.
 
 - Fork the repository on GitHub
-- Create a topic branch from where you want to base your work. This is usually master.
+- Create a topic branch from where you want to base your work. This is usually the `main` branch.
 - Open a new pull request, label it `work in progress` and outline what you will be contributing
 - Make commits of logical units.
 - Make sure you sign-off on your commits `git commit -s -m "adding X to change Y"` 
@@ -93,7 +93,7 @@ git commit -s -m "adding X to change Y"
 
 In order to update and release a new Sauce Connect image, do the following:
 
-1. add a new distribution to `DIST_IMAGES` in [`constants.js`](https://github.com/saucelabs/sauce-connect-docker/blob/master/scripts/constants.js)
+1. add a new distribution to `DIST_IMAGES` in [`constants.js`](https://github.com/saucelabs/sauce-connect-docker/blob/main/scripts/constants.js)
 1. build all images via `$ npm run build`
 1. test an image locally by running and see if a connection can be established
    ```sh
@@ -103,14 +103,14 @@ In order to update and release a new Sauce Connect image, do the following:
 1. once all test pass, merge
 1. make a new release by creating a tag that matches the new Sauce Connect version:
    ```sh
-   $ git checkout master
+   $ git checkout main
    # fetch latest code
-   $ git pull origin master
+   $ git pull origin main
    $ git tag -a "vX.X.X"
    ```
 1. push tag
    ```sh
-   $ git push origin master --tags
+   $ git push origin main --tags
    ```
 
 **Have fun, and happy hacking!**
