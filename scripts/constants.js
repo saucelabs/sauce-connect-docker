@@ -5,7 +5,11 @@ const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
     'latest': {
         version: '4.8.1',
-        from: 'ubuntu:20.04'
+        from: 'ubuntu:22.04'
+    },
+    '4.8.1-ubuntu-22.04': {
+        version: '4.8.1',
+        from: 'ubuntu:22.04'
     },
     '4.8.1': {
         version: '4.8.1',
