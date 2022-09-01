@@ -1,0 +1,79 @@
+# Default values for the sauce-connect chart.
+---
+# replicaCount may be increased for Sauce Connect Proxy Pool setup
+replicaCount: 1
+
+image:
+  repository: saucelabs/sauce-connect
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations:
+  appGroup: sauceConnect
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Sauce Connect Proxy Configuration
+sauceApiUrl: ""
+# NOTE: Use either sauceApiUrl or sauceApiRegion but not both.
+sauceApiRegion: ""
+# sauceUser must be defined
+sauceUser: ""
+# sauceApiKey must be defined
+sauceApiKey: ""
+tunnelName: "sc-k8s-tunnel"
+tunnelPool: "true"
+
+# See https://docs.saucelabs.com/secure-connections/sauce-connect/proxy-tunnels/#configuring-status-server
+status:
+  liveness: /liveness
+  readiness: /readiness
+  scheme: HTTP
+  port: 8032
