@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sauce-connect.fullname" . }}
+  labels:
+    {{- include "sauce-connect.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "sauce-connect.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sauce-connect.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "sauce-connect.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: SAUCE_REST_URL
+              value: {{ .Values.sauceApiUrl | quote }}
+            - name: SAUCE_REGION
+              value: {{ .Values.sauceApiRegion | quote }}
+            - name: SAUCE_USERNAME
+              value: {{ .Values.sauceUser | quote }}
+            - name: SAUCE_API_KEY
+              value: {{ .Values.sauceApiKey | quote }}
+            - name: SAUCE_STATUS_ADDRESS
+              value: "0.0.0.0:{{ .Values.status.port }}"
+            - name: SAUCE_TUNNEL_NAME
+              value: {{ .Values.tunnelName | quote }}
+            - name: SAUCE_TUNNEL_POOL
+              value: {{ .Values.tunnelPool | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: status
+              containerPort: {{ .Values.status.port }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.status.liveness }}
+              scheme: {{ .Values.status.scheme }}
+              port: {{ .Values.status.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.status.readiness }}
+              scheme: {{ .Values.status.scheme }}
+              port: {{ .Values.status.port }}
+            initialDelaySeconds: 4
+            periodSeconds: 1
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      restartPolicy: Never
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
