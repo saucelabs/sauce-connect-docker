@@ -70,14 +70,14 @@ docker run \
     --tunnel-name sc-tunnel-pool
 ```
 
-For more information on high availability Sauce Connect Proxy setup, please check out [Sauce Connect docs](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability).
+For more information on high availability Sauce Connect Proxy setup, please see [Sauce Connect documentation](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/high-availability).
 
 ### Sauce Connect Proxy Configuration
 
 #### YAML Configuration File
 
 Sauce Connect Proxy allows to define [YAML config file](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/yaml-config/) that will contain your configuration.
-YAML config file may contain username, access key, etc... See [Sauce Connect Proxy documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all available options.
+YAML config file may contain username, access key, etc... See [Sauce Connect documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy) for all available options.
 This Docker image comes with [config file](./scripts/files/sc-default.yaml) but it could be replaced with a custom one.
 
 Follow the following steps to use your config file with the docker container.
@@ -99,6 +99,7 @@ tunnel-identifier: "my-tunnel"
 
 ```sh
 docker run \
+    --detach \
     -v /path/to/sc.yaml:/tmp/sc.yaml \
     -t saucelabs/sauce-connect \
     --config-file /tmp/sc.yaml
@@ -115,9 +116,9 @@ Example of configuring Sauce Connect Proxy using environment variables (the exam
 
 ```sh
 $ cat /tmp/sc.env
-SAUCE_REGION:eu-central
-SAUCE_API_KEY="<YOUR API KEY>"
-SAUCE_USER="<YOUR USERNAME>"
+SAUCE_REGION=eu-central
+SAUCE_API_KEY=<YOUR API KEY>
+SAUCE_USER=<YOUR USERNAME>
 SAUCE_OUTPUT_FORMAT=text
 SAUCE_TUNNEL_POOL=true
 SAUCE_LOGFILE=-
@@ -125,10 +126,39 @@ SAUCE_TUNNEL_NAME=my-docker-tunnel
 SAUCE_READYFILE=/tmp/sc.ready
 
 $ docker run \
+    --detach \
     --env-file /tmp/sc.env \
     -v /tmp:/tmp \
     -t saucelabs/sauce-connect:4.8.1
 ```
+
+#### Using PAC file
+
+Sauce Connect Proxy supports [PAC](https://en.wikipedia.org/wiki/Proxy_auto-config) to allow fine-tuning of the proxy behavior.
+See the [Sauce Connect documentation](https://docs.saucelabs.com/secure-connections/sauce-connect/setup-configuration/additional-proxies/#proxy-auto-configuration-automatic) for more information.
+
+Example of configuring Sauce Connect Proxy using environment variables and the PAC file.
+
+- Store your PAC file in some directory
+  ```bash
+  $ cat ~/pac/sc.pac
+  function FindProxyForURL (url, host) {
+    if (shExpMatch(host, '*httpbin.org')) {
+        return 'PROXY localhost:8081';
+    }
+
+    return 'DIRECT';
+  }
+  ```
+- Start the container with docker `-v` option (mount the PAC file directory into a container) and Sauce Connect Proxy [--pac](https://docs.saucelabs.com/dev/cli/sauce-connect-proxy/index.html#--pac) flag
+  ```sh
+  $ docker run \
+      --detach \
+      --env-file ~/sauce-connect/sc.env \
+      -v ~/pac:/pac \
+      -t saucelabs/sauce-connect:4.8.1
+      --pac file:///pac/sc.pac
+  ```
 
 ## CI Example
 
