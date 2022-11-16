@@ -7,6 +7,26 @@ const DIST_IMAGES = {
         version: '4.8.1',
         from: 'ubuntu:22.04'
     },
+    '4.8.2-rc0-ubuntu-22.04': {
+        version: '4.8.2-rc0',
+        from: 'ubuntu:22.04'
+    },
+    '4.8.2-rc0': {
+        version: '4.8.2-rc0',
+        from: 'ubuntu:20.04'
+    },
+    '4.8.2-rc0-centos': {
+        version: '4.8.2-rc0',
+        from: 'centos:centos7'
+    },
+    '4.8.2-rc0-suse-15': {
+        version: '4.8.2-rc0',
+        from: 'opensuse/leap:15'
+    },
+    '4.8.2-rc0-alpine-glibc': {
+        version: '4.8.2-rc0',
+        from: 'frolvlad/alpine-glibc:alpine-3.16_glibc-2.34'
+    },
     '4.8.1-ubuntu-22.04': {
         version: '4.8.1',
         from: 'ubuntu:22.04'
