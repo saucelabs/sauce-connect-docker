@@ -33,6 +33,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: ["/srv/saucelabs/sauce-connect/sc-{{ .Values.image.tag }}-linux/bin/sc"]
           env:
             - name: SAUCE_REST_URL
               value: {{ .Values.sauceApiUrl | quote }}
@@ -48,6 +49,8 @@ spec:
               value: {{ .Values.tunnelName | quote }}
             - name: SAUCE_TUNNEL_POOL
               value: {{ .Values.tunnelPool | quote }}
+            - name: SAUCE_VERBOSE
+              value: {{ .Values.sauceVerbose | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: status
@@ -68,8 +71,8 @@ spec:
             periodSeconds: 1
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- with .Values.nodeSelector }}
-      restartPolicy: Never
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
