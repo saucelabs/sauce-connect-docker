@@ -303,6 +303,10 @@ To use this chart
   2022-08-02 02:59:11.464 [8] [CLI] [info] Sauce Connect is up, you may start your tests.
   ```
 
+- Pod restart
+
+The `terminationGracePeriodSeconds` is set to 600 seconds to allow sufficient time for jobs using the Sauce Connect Proxy to finish.
+
 ## Quick reference
 
 - __Maintained by__: the [Open Source Program Office](https://opensource.saucelabs.com/) at Sauce Labs
