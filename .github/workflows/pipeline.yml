@@ -6,7 +6,7 @@
 
 name: SC Docker tests pipeline
 
-on:
+on:  # yamllint disable-line rule:truthy
   pull_request:
   push:
     branches:
@@ -26,9 +26,10 @@ jobs:
       matrix:
         tag:
           - 'latest'
+          - '4.9.0'
+          - '4.9.0-alpine-glibc'
           - '4.8.2'
           - '4.8.2-alpine-glibc'
-          - '4.8.1-ubuntu-22.04'
           - '4.8.1'
           - '4.8.1-alpine-glibc'
           - '4.8.0'
