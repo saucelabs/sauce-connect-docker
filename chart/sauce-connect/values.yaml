@@ -7,7 +7,7 @@ image:
   repository: saucelabs/sauce-connect
   pullPolicy: IfNotPresent
   # sauce-connect image tag (cannot use "latest" here, it has to be a Sauce Connect Proxy version)
-  tag: "4.8.2"
+  tag: "4.9.0"
 
 imagePullSecrets: []
 nameOverride: ""
