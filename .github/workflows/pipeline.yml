@@ -6,14 +6,14 @@
 
 name: SC Docker tests pipeline
 
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   pull_request:
   push:
     branches:
       - master
   create:
     tags:
-      - 'v*'
+      - "v*"
 
 env:
   SAUCE_USERNAME: ${{secrets.SAUCE_USERNAME}}
@@ -25,21 +25,23 @@ jobs:
     strategy:
       matrix:
         tag:
-          - 'latest'
-          - '4.9.0'
-          - '4.9.0-alpine-glibc'
-          - '4.8.2'
-          - '4.8.2-alpine-glibc'
-          - '4.8.1'
-          - '4.8.1-alpine-glibc'
-          - '4.8.0'
-          - '4.8.0-alpine-glibc'
-          - '4.8.0'
-          - '4.8.0-alpine-glibc'
-          - '4.7.1'
-          - '4.7.1-alpine-glibc'
-          - '4.7.0'
-          - '4.7.0-alpine-glibc'
+          - "latest"
+          - "4.9.1-rc0"
+          - "4.9.1-rc0-alpine-glibc"
+          - "4.9.0"
+          - "4.9.0-alpine-glibc"
+          - "4.8.2"
+          - "4.8.2-alpine-glibc"
+          - "4.8.1"
+          - "4.8.1-alpine-glibc"
+          - "4.8.0"
+          - "4.8.0-alpine-glibc"
+          - "4.8.0"
+          - "4.8.0-alpine-glibc"
+          - "4.7.1"
+          - "4.7.1-alpine-glibc"
+          - "4.7.0"
+          - "4.7.0-alpine-glibc"
 
     steps:
       - name: Checkout Code
