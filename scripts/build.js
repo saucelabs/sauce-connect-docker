@@ -9,11 +9,16 @@ const ROOT_DIR = path.join(__dirname, '..')
 const DIST_DIR = path.join(ROOT_DIR, 'dist')
 
 ;(() => {
+    /**
+     * if DIST_TAG is not given exit with error.
+     */
+    if (!process.env.DIST_TAG) {
+        console.error('Please provide a DIST_TAG environment variable')
+        process.exit(1)
+    }
+
     for (const [distName, { version: SERVICE_VERSION }] of Object.entries(DIST_IMAGES)) {
-        /**
-         * if DIST_TAG is given only build that specific dist
-         */
-        if (process.env.DIST_TAG && process.env.DIST_TAG !== distName) {
+        if (process.env.DIST_TAG !== distName) {
             continue
         }
 
