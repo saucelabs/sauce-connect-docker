@@ -17,17 +17,20 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist')
         process.exit(1)
     }
 
-    for (const [distName, { version: SERVICE_VERSION }] of Object.entries(DIST_IMAGES)) {
+    for (const [distName, { version: SERVICE_VERSION, tags: SERVICE_TAGS }] of Object.entries(DIST_IMAGES)) {
         if (process.env.DIST_TAG !== distName) {
             continue
         }
 
-        const buildArgs = Object.entries({ SERVICE_VERSION, ...BUILD_ARGS }).map(
-            ([name, arg]) => `--build-arg ${name}=${arg}`)
-
         const dockerfile = path.join(DIST_DIR, distName, 'Dockerfile')
-        const cmd = `docker build -f ${dockerfile} -t "${SERVICE_NAME}:${distName}" ${buildArgs.join(' ')} .`
 
+        const extraTags = SERVICE_TAGS.map(
+            tag => `-t ${SERVICE_NAME}:${tag}`).join(' ')
+
+        const buildArgs = Object.entries({ SERVICE_VERSION, ...BUILD_ARGS }).map(
+            ([name, arg]) => `--build-arg ${name}=${arg}`).join(' ')
+
+        const cmd = `docker build -f ${dockerfile} -t "${SERVICE_NAME}:${distName}" ${extraTags} ${buildArgs} .`
         console.log(`> ${cmd}`)
 
         /**
