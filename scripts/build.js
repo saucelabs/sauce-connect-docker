@@ -43,5 +43,9 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist')
         
         shelljs.cd(path.join(DIST_DIR, distName))
         shelljs.exec(cmd)
+
+        if (shelljs.error()) {
+            process.exit(1)
+        }
     }
 })()
