@@ -7,41 +7,20 @@
 name: SC Docker tests pipeline
 
 on: # yamllint disable-line rule:truthy
-  pull_request:
-  push:
-    branches:
-      - master
-  create:
-    tags:
-      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version name to release ex. 4.9.1-rc0'
+        required: true
 
 env:
   SAUCE_USERNAME: ${{secrets.SAUCE_USERNAME}}
   SAUCE_ACCESS_KEY: ${{secrets.SAUCE_ACCESS_KEY}}
+  DIST_TAG: ${{ inputs.version }}
 
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        tag:
-          - "latest"
-          - "4.9.1-rc0"
-          - "4.9.1-rc0-alpine-glibc"
-          - "4.9.0"
-          - "4.9.0-alpine-glibc"
-          - "4.8.2"
-          - "4.8.2-alpine-glibc"
-          - "4.8.1"
-          - "4.8.1-alpine-glibc"
-          - "4.8.0"
-          - "4.8.0-alpine-glibc"
-          - "4.8.0"
-          - "4.8.0-alpine-glibc"
-          - "4.7.1"
-          - "4.7.1-alpine-glibc"
-          - "4.7.0"
-          - "4.7.0-alpine-glibc"
 
     steps:
       - name: Checkout Code
@@ -51,8 +30,6 @@ jobs:
         run: |
           npm install
           npm run build
-        env:
-          DIST_TAG: ${{ matrix.tag }}
 
       - name: Start Sauce Connect
         run: |
@@ -62,15 +39,13 @@ jobs:
             -e SAUCE_ACCESS_KEY=${{ secrets.SAUCE_ACCESS_KEY }} \
             -v /tmp:/tmp \
             --network="host" \
-            -t saucelabs/sauce-connect:${{ matrix.tag }} \
+            -t saucelabs/sauce-connect:${DIST_TAG} \
             -c /tmp/sc-test.yaml \
-            -i sc-${{ matrix.tag }}-$GITHUB_RUN_NUMBER &
+            -i sc-${DIST_TAG}-$GITHUB_RUN_NUMBER &
           ./test/wait-for-sc.sh
 
       - name: Run Test
         run: npm run test
-        env:
-          DIST_TAG: ${{ matrix.tag }}
 
       - name: DockerHub Login
         if: startsWith(github.ref, 'refs/tags/')
@@ -82,7 +57,7 @@ jobs:
       - name: Image Release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          docker push saucelabs/sauce-connect:${{ matrix.tag }}
+          docker push saucelabs/sauce-connect:${DIST_TAG}
 
       - name: Upload generated Dockerfiles
         uses: actions/upload-artifact@v2
