@@ -10,7 +10,7 @@ on: # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version name to release ex. 4.9.1-rc0'
+        description: 'Version name to release ex. 4.9.1-rc0-ubuntu-22.04, see scripts/constants.js for available versions'
         required: true
 
 env:
