@@ -59,8 +59,3 @@ jobs:
         run: |
           docker push saucelabs/sauce-connect:${DIST_TAG}
 
-      - name: Upload generated Dockerfiles
-        uses: actions/upload-artifact@v2
-        with:
-          name: dockerfiles
-          path: dist/
