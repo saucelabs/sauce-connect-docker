@@ -3,16 +3,6 @@ Sauce Connect Docker
 
 Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://docs.saucelabs.com/secure-connections/sauce-connect) within the confines of a [Docker](https://www.docker.com/) container on any system that supports Docker.
 
-## Supported tags
-
-- 4.9.1-rc0, 4.9.1-rc0-ubuntu-22.04, 4.9.1-rc0-alpine-glibc
-- 4.9.0, 4.9.0-ubuntu-22.04, 4.9.0-alpine-glibc, latest
-- 4.8.2, 4.8.2-ubuntu-22.04, 4.8.2-alpine-glibc
-- 4.8.1, 4.8.1-ubuntu-22.04, 4.8.1-alpine-glibc
-- 4.8.0, 4.8.0-alpine-glibc
-- 4.7.1, 4.7.1-alpine-glibc
-- 4.7.0, 4.7.0-alpine-glibc
-
 ## Running
 
 - Pull the image from [Docker Hub](https://hub.docker.com/r/saucelabs/sauce-connect):
