@@ -4,6 +4,7 @@
     "build": "run-s clean build:*",
     "build:generate": "./scripts/generate.js",
     "build:build": "./scripts/build.js",
+    "push": "./scripts/push.js",
     "clean": "rimraf dist",
     "test": "run-p test:*",
     "test:setup": "http-server ./test -p 8080 > /dev/null 2>&1 &",
