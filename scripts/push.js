@@ -27,9 +27,7 @@ const {DIST_IMAGES, SERVICE_NAME} = require('./constants')
 function pushImage(tag) {
     console.log(`> docker push ${SERVICE_NAME}:${tag}`)
 
-    shelljs.exec(`docker push ${SERVICE_NAME}:${tag}`)
-
-    if (shelljs.error()) {
-        process.exit(1)
+    if (shelljs.exec(`docker push ${SERVICE_NAME}:${tag}`).code !== 0) {
+        shelljs.exit(1)
     }
 }
