@@ -19,7 +19,8 @@ const DIST_IMAGES = {
     },
     '4.9.0-alpine-glibc': {
         version: '4.9.0',
-        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34'
+        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34',
+        tags: ['4.9-alpine-glibc']
     },
 
     // Legacy versions
