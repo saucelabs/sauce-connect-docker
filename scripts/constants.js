@@ -25,6 +25,18 @@ const DIST_IMAGES = {
 
     // Legacy versions
 
+    '4.8.3-ubuntu-22.04': {
+        version: '4.8.3',
+        from: 'ubuntu:22.04'
+    },
+    '4.8.3-alpine-glibc': {
+        version: '4.8.3',
+        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34'
+    },
+    '4.8.3': {
+        version: '4.8.3',
+        from: 'ubuntu:22.04'
+    },
     '4.8.2-ubuntu-22.04': {
         version: '4.8.2',
         from: 'ubuntu:22.04'
