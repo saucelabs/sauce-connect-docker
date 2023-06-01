@@ -27,11 +27,13 @@ const DIST_IMAGES = {
 
     '4.8.3-ubuntu-22.04': {
         version: '4.8.3',
-        from: 'ubuntu:22.04'
+        from: 'ubuntu:22.04',
+        tags: ['4.8.3', '4.8']
     },
     '4.8.3-alpine-glibc': {
         version: '4.8.3',
-        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34'
+        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34',
+        tags: ['4.8-alpine-glibc']
     },
     '4.8.3': {
         version: '4.8.3',
