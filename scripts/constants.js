@@ -10,7 +10,7 @@ const DIST_IMAGES = {
     },
     '4.9.1-alpine-glibc': {
         version: '4.9.1',
-        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34'
+        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34',
         tags: ['4.9-alpine-glibc']
     },
     '4.9.0-ubuntu-22.04': {
