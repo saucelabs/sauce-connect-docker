@@ -265,7 +265,7 @@ To use this chart
   ```
 - Install the Helm chart
   ```bash
-  $ helm install sauce-connect  ./chart/sauce-connect --values /path/to/values.yaml
+  $ helm install sauce-connect  ./chart/sauce-connect --values /path/to/values.yaml --set tunnelName=your-pool-name --set tunnelPoolSize=1
   NOTES:
   1. Get the application URL by running these commands:
     export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=sauce-connect,app.kubernetes.io/instance=sauce-connect" -o jsonpath="{.items[0].metadata.name}")

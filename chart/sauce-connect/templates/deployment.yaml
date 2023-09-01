@@ -7,7 +7,7 @@ metadata:
     {{- include "sauce-connect.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.tunnelPoolSize }}
   {{- end }}
   selector:
     matchLabels:
