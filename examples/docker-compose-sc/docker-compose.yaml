@@ -1,0 +1,20 @@
+---
+version: "3.9"
+services:
+  sauce-connect:
+    deploy:
+      replicas: 1
+      restart_policy:
+        delay: 30s
+        max_attempts: 5
+        condition: on-failure
+        window: 60s
+    image: "saucelabs/sauce-connect:latest"
+    environment:
+      SAUCE_USERNAME: ${SAUCE_USERNAME}
+      SAUCE_ACCESS_KEY: ${SAUCE_ACCESS_KEY}
+      SAUCE_SE_PORT: "0"
+      SAUCE_REGION: "${SAUCE_REGION:-us-west}"
+      SAUCE_TUNNEL_NAME: "${SAUCE_TUNNEL_NAME:-sc-pool}"
+      SAUCE_TUNNEL_POOL: "true"
+      SAUCE_SHARED_TUNNEL: "true"
