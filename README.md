@@ -221,6 +221,13 @@ You can leverage the Sauce Connect Proxy [--readyfile](https://docs.saucelabs.co
 ### Using GitHub Actions
 Have a look into the GitHub Actions pipeline for [this repository](https://github.com/saucelabs/sauce-connect-docker/blob/master/.github/workflows/pipeline.yml). If you use GitHub Actions you can just make use of our [GitHub Actions Integration](https://github.com/saucelabs/sauce-connect-action).
 
+## Docker Compose
+
+The [examples](./examples) folder contains Docker Compose configurations for:
+
+- [Running a Sauce Connect Proxy Pool](./examples/docker-compose-sc)
+- [Running an arbitrary application (Nginx Server in this example) alongside Sauce Connect Proxy container](./examples/docker-compose-sc-nginx)
+
 ## Kubernetes Support
 
 Starting with 4.8.0, Sauce Connect Proxy Docker image allows configuring liveness and readiness HTTP probes. See the [kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) for more info.
