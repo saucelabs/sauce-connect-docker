@@ -1,7 +1,10 @@
 Sauce Connect Docker
 ====================
 
+> :warning: **This repository is used to build images for Sauce Connect Proxy version 4 only. Sauce Connect Proxy 5 release includes Docker images.**
+
 Sauce Connect Docker App lets you easily run [Sauce Connect Proxy](https://docs.saucelabs.com/secure-connections/sauce-connect) within the confines of a [Docker](https://www.docker.com/) container on any system that supports Docker.
+
 
 ## Running
 
