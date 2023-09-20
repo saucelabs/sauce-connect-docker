@@ -6,9 +6,7 @@ metadata:
   labels:
     {{- include "sauce-connect.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.tunnelPoolSize }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "sauce-connect.selectorLabels" . | nindent 6 }}
