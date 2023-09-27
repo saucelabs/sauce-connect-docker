@@ -1,0 +1,55 @@
+---
+version: "3"
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+services:
+  sauce-connect:
+    deploy:
+      replicas: 1
+      restart_policy:
+        delay: 30s
+        max_attempts: 5
+        condition: on-failure
+        window: 60s
+    image: "saucelabs/sauce-connect:5.0"
+    pull_policy: always
+    environment:
+      SAUCE_USER: ${SAUCE_USER}
+      SAUCE_ACCESS_KEY: ${SAUCE_ACCESS_KEY}
+      SAUCE_REGION: "${SAUCE_REGION:-us-west}"
+      SAUCE_TUNNEL_NAME: "${SAUCE_TUNNEL_NAME:-sc-prom-grafana}"
+      SAUCE_TUNNEL_POOL: "true"
+      SAUCE_SHARED_TUNNEL: "true"
+      SAUCE_API_ADDRESS: ":10000"
+    ports:
+      - 10000:10000
+
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    restart: always
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:10.1.2
+    restart: always
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./grafana/config.monitoring
+    ports:
+      - 3000:3000
