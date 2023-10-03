@@ -19,4 +19,7 @@ SAUCE_USER=foo SAUCE_ACCESS_KEY=xxxx SAUCE_TUNNEL_NAME=sc-prom-grafana SAUCE_REG
 ```
 
 ## Sauce Connect Dashboard
+
 The Sauce Connect Grafana dashboard is available at http://localhost:3000/d/sauce-connect/sauce-connect. Login with user: _admin_, password: _admin_, or change the credentials in `./grafana/config.monitoring`.
+
+![Sauce Connect Proxy Grafana dashboard](../images/sc5-dashboard.png)
