@@ -94,7 +94,7 @@
                     "datasource": "Prometheus",
                     "editorMode": "code",
                     "exemplar": false,
-                    "expr": "sauce_connect_connections_total",
+                    "expr": "sauce_connect_tunnel_connections_total",
                     "instant": false,
                     "legendFormat": "{{conn}}",
                     "range": true,
@@ -188,7 +188,7 @@
                 {
                     "datasource": "Prometheus",
                     "editorMode": "code",
-                    "expr": "sum(rate(sauce_connect_sent_bytes[$__rate_interval])*-1)",
+                    "expr": "sum(rate(sauce_connect_tunnel_sent_bytes[$__rate_interval])*-1)",
                     "legendFormat": "Outgoing",
                     "range": true,
                     "refId": "A"
@@ -196,7 +196,7 @@
                 {
                     "datasource": "Prometheus",
                     "editorMode": "code",
-                    "expr": "sum(rate(sauce_connect_received_bytes[$__rate_interval]))",
+                    "expr": "sum(rate(sauce_connect_tunnel_received_bytes[$__rate_interval]))",
                     "hide": false,
                     "legendFormat": "Incoming",
                     "range": true,
