@@ -3,15 +3,24 @@ const SERVICE_HOST = '0.0.0.0'
 const SERVICE_PORT = '22'
 const SERVICE_HOME = `/srv/${SERVICE_NAME}`
 const DIST_IMAGES = {
+    '4.9.2-ubuntu-22.04': {
+        version: '4.9.2',
+        from: 'ubuntu:22.04',
+        tags: ['latest', '4.9.2', '4.9']
+    },
+    '4.9.2-alpine-glibc': {
+        version: '4.9.2',
+        from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34',
+        tags: ['4.9-alpine-glibc']
+    },
     '4.9.1-ubuntu-22.04': {
         version: '4.9.1',
         from: 'ubuntu:22.04',
-        tags: ['latest', '4.9.1', '4.9']
+        tags: ['4.9.1']
     },
     '4.9.1-alpine-glibc': {
         version: '4.9.1',
         from: 'frolvlad/alpine-glibc:alpine-3.17_glibc-2.34',
-        tags: ['4.9-alpine-glibc']
     },
     '4.9.0-ubuntu-22.04': {
         version: '4.9.0',
