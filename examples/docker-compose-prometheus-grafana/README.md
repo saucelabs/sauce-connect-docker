@@ -8,14 +8,14 @@ Set the following required Sauce Connect 5 environment variables, see details in
 
 - `SAUCE_REGION` - Sauce Labs region, one of us-west, eu-central, etc.
 - `SAUCE_TUNNEL_NAME` - Sauce Connect Tunnel Pool name
-- `SAUCE_USER` - Sauce Labs username
+- `SAUCE_USERNAME` - Sauce Labs username
 - `SAUCE_ACCESS_KEY` - Sauce Labs access key
 
 Set the following docker compose variables, see details in the [Docker Compose documentation](https://docs.docker.com/)
 - `--no-log-prefix` will configure Docker Compose to not prepend Sauce Connect Proxy stdout with the container name.
 
 ```sh
-SAUCE_USER=foo SAUCE_ACCESS_KEY=xxxx SAUCE_TUNNEL_NAME=sc-prom-grafana SAUCE_REGION=us-west docker-compose up --no-log-prefix
+SAUCE_USERNAME=foo SAUCE_ACCESS_KEY=xxxx SAUCE_TUNNEL_NAME=sc-prom-grafana SAUCE_REGION=us-west docker-compose up --no-log-prefix
 ```
 
 ## Sauce Connect Dashboard
