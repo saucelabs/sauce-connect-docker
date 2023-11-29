@@ -17,7 +17,7 @@ services:
     image: "saucelabs/sauce-connect:5.0"
     pull_policy: always
     environment:
-      SAUCE_USER: ${SAUCE_USER}
+      SAUCE_USERNAME: ${SAUCE_USERNAME}
       SAUCE_ACCESS_KEY: ${SAUCE_ACCESS_KEY}
       SAUCE_REGION: "${SAUCE_REGION:-us-west}"
       SAUCE_TUNNEL_NAME: "${SAUCE_TUNNEL_NAME:-sc-prom-grafana}"
