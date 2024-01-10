@@ -2,6 +2,8 @@
 
 Run [Sauce Connect 5](https://docs.saucelabs.com/secure-connections/sauce-connect-5/) and export [Prometheus](https://prometheus.io/) metrics to a [Grafana](http://grafana.org/) dashboard.
 
+The dashboard is available at [Grafana Dashboards](https://grafana.com/grafana/dashboards/20232-sauce-connect/).
+
 ## Setup
 
 Set the following required Sauce Connect 5 environment variables, see details in the [Sauce Connect 5 CLI documentation](https://docs.saucelabs.com/dev/cli/sauce-connect-5/run/):
